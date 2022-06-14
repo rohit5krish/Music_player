@@ -61,8 +61,11 @@ class _FavouritesState extends State<Favourites> {
                 },
                 icon: Icon(
                   Icons.add_circle_outline_outlined,
-                  size: 30,
-                ))
+                  size: 28,
+                )),
+            SizedBox(
+              width: 7,
+            )
           ],
         ),
         backgroundColor: bodyclr,
@@ -154,18 +157,22 @@ class _FavouritesState extends State<Favourites> {
                                   style: TextStyle(color: white),
                                   overflow: TextOverflow.ellipsis,
                                 )),
-                            trailing: IconButton(
-                                onPressed: () {
-                                  checkAdded(dbsongs[index].songname,
-                                          favsonglist.value)
-                                      ? addedNoti(
-                                          isadd: true,
-                                          ctx: ctx,
-                                          isfav: 'Favourites')
-                                      : addFavtoDb(index);
-                                  getFavSongs();
-                                },
-                                icon: Icon(Icons.add, color: Colors.grey)),
+                            trailing: !checkAdded(
+                                    dbsongs[index].songname, favsonglist.value)
+                                ? IconButton(
+                                    onPressed: () {
+                                      // checkAdded(dbsongs[index].songname,
+                                      //         favsonglist.value)
+                                      //     ? addedNoti(
+                                      //         isadd: true,
+                                      //         ctx: ctx,
+                                      //         isfav: 'Favourites')
+                                      //     :
+                                      addFavtoDb(index);
+                                      getFavSongs();
+                                    },
+                                    icon: Icon(Icons.add, color: Colors.grey))
+                                : Text(''),
                           );
                         }),
                   )

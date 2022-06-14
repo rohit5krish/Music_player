@@ -104,9 +104,9 @@ class _HomePageState extends State<HomePage> {
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () {
+                                          makeVisible();
                                           playSong().playinglist(
                                               finalsonglist, index);
-                                          makeVisible();
                                         },
                                         child: Songs(
                                           img: QueryArtworkWidget(

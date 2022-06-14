@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
+import 'package:music_player/Widgets/settings_widget.dart';
+import 'package:music_player/splash.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   Settings({Key? key}) : super(key: key);
@@ -8,16 +12,23 @@ class Settings extends StatefulWidget {
   State<Settings> createState() => _SettingsState();
 }
 
+ValueNotifier<bool> isSwitched = ValueNotifier(prefbool);
+final String prefKey = 'sharedpref';
+
 class _SettingsState extends State<Settings> {
   //Settings Contents
-  final List<String> settinglist = [
-    'Notifications',
-    'Terms and Conditions',
-    'Privacy Policy',
-    'About'
+  final List settinglist = [
+    [
+      Icon(
+        Icons.notifications,
+        color: white,
+      ),
+      'Notifications'
+    ],
+    [Icon(Icons.file_copy, color: white), 'Terms and Conditions'],
+    [Icon(Icons.share, color: white), 'Share'],
+    [Icon(Icons.info_outline, color: white), 'About']
   ];
-
-  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,43 +47,90 @@ class _SettingsState extends State<Settings> {
         title: Text('Settings'),
       ),
       backgroundColor: bodyclr,
-      body: Column(
-        children: [
-          //Settings List
-          Expanded(
-            flex: 8,
-            child: ListView.builder(
-                itemCount: settinglist.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    trailing: index == 0
-                        ? Switch(
-                            value: isSwitched,
-                            onChanged: (value) {
-                              setState(() {
-                                isSwitched = value;
-                              });
-                            },
-                            inactiveTrackColor: Colors.grey,
-                          )
-                        : null,
-                    title: Text(
-                      settinglist[index],
-                      style: whitetxt18,
-                    ),
-                  );
-                }),
-          ),
-          //Version
-          Expanded(
-            flex: 1,
-            child: Text(
-              'Version 1.0.0',
-              style: TextStyle(color: Colors.grey[600], fontSize: 16),
-            ),
-          )
-        ],
-      ),
+      body: ListView.builder(
+          itemCount: settinglist.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: () {
+                settingontap(index);
+              },
+              leading: settinglist[index][0],
+              trailing: index == 0
+                  ? Switch(
+                      value: isSwitched.value,
+                      onChanged: (value) async {
+                        setState(() {
+                          isSwitched.value = value;
+                        });
+                        final pref = await SharedPreferences.getInstance();
+                        pref.setBool(prefKey, value);
+                      },
+                      inactiveTrackColor: Colors.grey,
+                    )
+                  : null,
+              title: Text(
+                settinglist[index][1],
+                style: whitetxt18,
+              ),
+            );
+          }),
     );
+  }
+
+  settingontap(int idx) async {
+    if (idx == 1) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return termsNcond();
+      }));
+    } else if (idx == 2) {
+      await Share.share(
+          'Hey there this is good app to listen to listen to Music');
+    } else if (idx == 3) {
+      aboutBottom();
+    }
+  }
+
+  aboutBottom() {
+    showModalBottomSheet(
+        backgroundColor: bggradient1,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'About',
+                  style: whitetxt22,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Version 1.0.0',
+                  style: whitetxt15,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Email : rohitkrishnark5@gmail.com',
+                  style: whitetxt15,
+                ),
+                SizedBox(
+                  height: 17,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Ok'))
+              ],
+            ),
+          );
+        });
   }
 }

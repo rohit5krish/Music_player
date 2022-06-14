@@ -193,6 +193,13 @@ selectPlaylist(BuildContext context, audioModel element) {
                                     plylst.value[index],
                                     style: TextStyle(color: white),
                                   ),
+                                  trailing: checkAdded(element.songname,
+                                          dbBox.get(plylst.value[index])!)
+                                      ? Text(
+                                          'Already added',
+                                          style: white30txt12,
+                                        )
+                                      : Text(''),
                                 ),
                               );
                             })),

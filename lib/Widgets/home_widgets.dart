@@ -162,10 +162,9 @@ class Songs extends StatelessWidget {
       required this.artist,
       required this.index});
 
-  static const String delete = 'Delete';
   static const String addplaylist = 'Add to Playlist';
   static const String addfavourite = 'Add to Favourites';
-  final List<String> popuplist = [delete, addplaylist, addfavourite];
+  final List<String> popuplist = [addplaylist, addfavourite];
   late BuildContext ctx;
   @override
   Widget build(BuildContext context) {
@@ -239,9 +238,7 @@ class Songs extends StatelessWidget {
   }
 
   popupselection(String value) async {
-    if (value == delete) {
-      print(value);
-    } else if (value == addplaylist) {
+    if (value == addplaylist) {
       selectPlaylist(ctx, dbsongs[index]);
     } else if (value == addfavourite) {
       checkAdded(songname, favsonglist.value)

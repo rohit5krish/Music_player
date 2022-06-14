@@ -29,9 +29,12 @@ Future<void> main() async {
     favsonglist.value = dbBox.get(favsongs)!.cast<audioModel>();
   }
 
-  if (!(boxKeys.contains('recent'))) {
-    await dbBox.put('recent', recentdbsongs);
+  if (!(boxKeys.contains(recent))) {
+    await dbBox.put(recent, recentdbsongs);
   }
+  //  else if (boxKeys.contains(recent)) {
+  //   recentdbsongs = dbBox.get(recent)!.cast<audioModel>();
+  // }
   runApp(MusicPlayer());
 }
 

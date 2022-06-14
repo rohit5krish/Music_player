@@ -2,12 +2,16 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 import 'package:music_player/DB/data_model.dart';
+import 'package:music_player/Module%201/home_page.dart';
+import 'package:music_player/Module%202/play_song.dart';
+import 'package:music_player/Module%206/now_playing.dart';
 import 'package:music_player/Widgets/home_widgets.dart';
 import 'package:music_player/splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 List<audioModel> recentdbsongs = [];
 List<Audio> finalrecent = [];
+final String recent = 'recent';
 
 getRecsongs() {
   finalrecent.clear();
@@ -20,6 +24,19 @@ getRecsongs() {
   }
 }
 
+addRecDB() async {
+  // recentdbsongs = dbBox.get('recent')!.cast<audioModel>();
+  recentdbsongs.clear();
+  for (var element in finalrecent) {
+    recentdbsongs.add(audioModel(
+        id: int.parse(element.metas.id.toString()),
+        songname: element.metas.title.toString(),
+        artist: element.metas.artist.toString(),
+        songuri: element.path));
+  }
+  await dbBox.put(recent, recentdbsongs);
+}
+
 class Recent extends StatefulWidget {
   const Recent({Key? key}) : super(key: key);
 
@@ -30,8 +47,8 @@ class Recent extends StatefulWidget {
 class _RecentState extends State<Recent> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    recentdbsongs = dbBox.get(recent)!.cast<audioModel>();
     getRecsongs();
   }
 
@@ -39,6 +56,17 @@ class _RecentState extends State<Recent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  recentdbsongs.clear();
+                  getRecsongs();
+                });
+                dbBox.put(recent, recentdbsongs);
+              },
+              icon: Icon(Icons.delete))
+        ],
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Text('Recent'),
@@ -63,34 +91,42 @@ class _RecentState extends State<Recent> {
             : ListView.builder(
                 itemCount: finalrecent.length,
                 itemBuilder: (context, index) {
-                  return Songs(
-                    img: QueryArtworkWidget(
-                        nullArtworkWidget: Icon(
-                          Icons.music_note,
-                          color: white,
-                          size: 30,
-                        ),
-                        id: int.parse(
-                            finalrecent[(finalrecent.length - index) - 1]
-                                .metas
-                                .id
-                                .toString()),
-                        type: ArtworkType.AUDIO),
-                    songname: finalrecent[(finalrecent.length - index) - 1]
-                        .metas
-                        .title
-                        .toString(),
-                    artist: finalrecent[(finalrecent.length - index) - 1]
-                                .metas
-                                .artist
-                                .toString() ==
-                            '<unknown>'
-                        ? "Unknown Artist"
-                        : finalrecent[(finalrecent.length - index) - 1]
-                            .metas
-                            .artist
-                            .toString(),
-                    index: (finalrecent.length - index) - 1,
+                  return InkWell(
+                    onTap: () {
+                      playSong().playinglist(
+                          finalrecent, (finalrecent.length - index) - 1);
+                      isVisible.value = true;
+                      isVisible.notifyListeners();
+                    },
+                    child: Songs(
+                      img: QueryArtworkWidget(
+                          nullArtworkWidget: Icon(
+                            Icons.music_note,
+                            color: white,
+                            size: 30,
+                          ),
+                          id: int.parse(
+                              finalrecent[(finalrecent.length - index) - 1]
+                                  .metas
+                                  .id
+                                  .toString()),
+                          type: ArtworkType.AUDIO),
+                      songname: finalrecent[(finalrecent.length - index) - 1]
+                          .metas
+                          .title
+                          .toString(),
+                      artist: finalrecent[(finalrecent.length - index) - 1]
+                                  .metas
+                                  .artist
+                                  .toString() ==
+                              '<unknown>'
+                          ? "Unknown Artist"
+                          : finalrecent[(finalrecent.length - index) - 1]
+                              .metas
+                              .artist
+                              .toString(),
+                      index: (finalrecent.length - index) - 1,
+                    ),
                   );
                 }),
       ),

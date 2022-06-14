@@ -117,6 +117,8 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
                   children: [
                     InkWell(
                       onTap: () {
+                        isVisible.value = true;
+                        isVisible.notifyListeners();
                         playSong().playinglist(finalplylstsongs.value, 0);
                       },
                       child: Container(
@@ -329,21 +331,25 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
                                   style: TextStyle(color: white),
                                   overflow: TextOverflow.ellipsis,
                                 )),
-                            trailing: IconButton(
-                                onPressed: () {
-                                  checkAdded(dbsongs[index].songname,
-                                          plylstsongs.value)
-                                      ? addedNoti(
-                                          isadd: true,
-                                          ctx: context,
-                                          isfav: widget.boxkey)
-                                      : addtodb(index);
-                                  getSongs();
-                                },
-                                icon: Icon(
-                                  Icons.add,
-                                  color: Colors.grey,
-                                )),
+                            trailing: !checkAdded(
+                                    dbsongs[index].songname, plylstsongs.value)
+                                ? IconButton(
+                                    onPressed: () {
+                                      // checkAdded(dbsongs[index].songname,
+                                      //         plylstsongs.value)
+                                      //     ? addedNoti(
+                                      //         isadd: true,
+                                      //         ctx: context,
+                                      //         isfav: widget.boxkey)
+                                      //     :
+                                      addtodb(index);
+                                      getSongs();
+                                    },
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: Colors.grey,
+                                    ))
+                                : Text(''),
                           );
                         }),
                   )
@@ -453,9 +459,17 @@ class _plylistsngsState extends State<plylistsngs> {
     dbBox.put(widget.boxkey, plylstsongs.value);
   }
 
+  deleteNoti(BuildContext ctx) {
+    ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+        backgroundColor: bggradient1,
+        duration: Duration(seconds: 4),
+        content: Text('Song removed from Playlist')));
+  }
+
   plylistpopselection(String value) async {
     if (value == plylistsngs.removsong) {
       songDeletion();
+      deleteNoti(context);
     } else if (value == plylistsngs.addfav) {
       checkAdded(widget.songname, favsonglist.value)
           ? addedNoti(isadd: true, ctx: ctx, isfav: 'Favourites')

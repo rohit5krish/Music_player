@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 import 'package:music_player/Module%203/favourites.dart';
 import 'package:music_player/Widgets/home_widgets.dart';
@@ -94,7 +95,13 @@ class _crntplayinghomState extends State<crntplayinghom> {
                                   children: [
                                     SizedBox(
                                       width: 120,
-                                      child: Text(
+                                      child:
+                                          // Marquee(
+                                          //   text:
+                                          //       audioPlayer.getCurrentAudioTitle,
+                                          //   style: whitetxt15,
+                                          // )
+                                          Text(
                                         audioPlayer.getCurrentAudioTitle,
                                         style: whitetxt15,
                                         overflow: TextOverflow.ellipsis,
@@ -264,7 +271,7 @@ class _NowPlayingState extends State<NowPlaying> {
       return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/Dekh_lena.jpg'),
+                image: AssetImage('assets/pexels-negative-space-97077.jpg'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(Colors.black, BlendMode.screen),
                 opacity: 0.7)),

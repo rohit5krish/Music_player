@@ -76,7 +76,13 @@ class _musicPlaylistState extends State<musicPlaylist> {
                       onPressed: () {
                         showBottom(context: context, addply: false);
                       },
-                      icon: Icon(Icons.add_circle_outline))
+                      icon: Icon(
+                        Icons.add_circle_outline,
+                        size: 28,
+                      )),
+              SizedBox(
+                width: 7,
+              )
             ],
           ),
           backgroundColor: bodyclr,

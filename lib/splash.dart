@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:music_player/DB/data_model.dart';
 import 'package:music_player/Module%201/home_page.dart';
+import 'package:music_player/Module%201/settings.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final OnAudioQuery audioQuery = OnAudioQuery();
 // final dbBox = Hive.box('localsongs');
@@ -15,6 +17,7 @@ List<SongModel> sortedsongs = [];
 List<audioModel> modelListSongs = [];
 List<audioModel> dbsongs = [];
 List<Audio> finalsonglist = [];
+late bool prefbool;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -33,9 +36,19 @@ class _SplashScreenState extends State<SplashScreen> {
   Future gotoHome() async {
     await Future.delayed(Duration(seconds: 2));
     await requestPermission();
+    await checkNoti();
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
       return HomePage();
     }));
+  }
+
+  checkNoti() async {
+    final pref = await SharedPreferences.getInstance();
+    if (pref.getBool(prefKey) != null) {
+      prefbool = pref.getBool(prefKey)!;
+    } else {
+      prefbool = false;
+    }
   }
 
   requestPermission() async {
