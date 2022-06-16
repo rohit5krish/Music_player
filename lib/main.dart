@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_player/DB/data_model.dart';
 import 'package:music_player/Module%202/recent.dart';
 import 'package:music_player/Module%203/favourites.dart';
 import 'package:music_player/Module%204/playlist.dart';
-import 'package:music_player/Module%205/playlist_info.dart';
 import 'package:music_player/splash.dart';
 
 Future<void> main() async {
@@ -48,10 +48,16 @@ class MusicPlayer extends StatefulWidget {
 class _MusicPlayerState extends State<MusicPlayer> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: SplashScreen(),
-      debugShowCheckedModeBanner: false,
-    );
+    return ScreenUtilInit(
+        designSize: Size(360, 690),
+        splitScreenMode: true,
+        minTextAdapt: true,
+        builder: (context, child) {
+          return MaterialApp(
+            theme: ThemeData(primarySwatch: Colors.blue),
+            home: SplashScreen(),
+            debugShowCheckedModeBanner: false,
+          );
+        });
   }
 }

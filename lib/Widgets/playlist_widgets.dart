@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 import 'package:music_player/DB/data_model.dart';
@@ -10,18 +9,11 @@ import 'package:music_player/Widgets/home_widgets.dart';
 import 'package:music_player/splash.dart';
 
 class playlistalbums extends StatefulWidget {
-  // final String img;
   final String name;
-  // final int total;
   final int index;
   final ValueChanged<bool> isSelected;
-  playlistalbums(
-      {
-      // {required this.img,
-      required this.name,
-      // required this.total,
-      required this.index,
-      required this.isSelected});
+  const playlistalbums(
+      {required this.name, required this.index, required this.isSelected});
 
   @override
   State<playlistalbums> createState() => _playlistalbumsState();
@@ -62,9 +54,6 @@ class _playlistalbumsState extends State<playlistalbums> {
       child: Column(
         children: [
           Container(
-            // decoration: BoxDecoration(
-            //     color: white, image: DecorationImage(image: AssetImage(img))),
-
             height: 130,
             width: 130,
             child: ClipRRect(
@@ -72,7 +61,6 @@ class _playlistalbumsState extends State<playlistalbums> {
                 child: Container(
                   color: Colors.blue,
                   child: Stack(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Align(
                         alignment: Alignment.topRight,
@@ -93,12 +81,7 @@ class _playlistalbumsState extends State<playlistalbums> {
                       ),
                     ],
                   ),
-                )
-                //  Image.asset(
-                //   'assets/Hridayam.jpg',
-                //   fit: BoxFit.cover,
-                // ),
-                ),
+                )),
           ),
           SizedBox(
             height: 9,
@@ -107,25 +90,14 @@ class _playlistalbumsState extends State<playlistalbums> {
             widget.name,
             style: whitetxt18,
           ),
-          // ValueListenableBuilder(
-          //   valueListenable: plylstsongs,
-          //   builder: (BuildContext context, List<audioModel> plylstsongs,
-          //       Widget? child) {
-          //     return
           Text(
             'Total ${plylstsongs.value.length} Songs',
             style: white54txt14,
           )
-          //   },
-          // )
         ],
       ),
     );
   }
-
-  // gridDltAlert() {
-
-  // }
 
   clicked(context, index, name) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {

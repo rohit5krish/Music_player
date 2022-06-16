@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_declarations
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -23,66 +25,3 @@ final Decoration mymusicdecor = BoxDecoration(
     borderRadius: BorderRadius.only(
         topLeft: Radius.circular(40), topRight: Radius.circular(40)),
     color: cardshomecolor);
-
-// final List<Map<String, String>> songsinfo = [
-//   {
-//     "img": "assets/Hope_tentacion.jpg",
-//     "songname": "Hope",
-//     "artist": "XXX Tentacion"
-//   },
-//   {
-//     "img": "assets/Heat_Waves2.jpg",
-//     "songname": "Heat Waves",
-//     "artist": "Glass Animals"
-//   },
-//   {
-//     "img": "assets/Shape_of_you.png",
-//     "songname": "Shape Of You",
-//     "artist": "Ed Sheeran"
-//   },
-//   {
-//     "img": "assets/Girls_like_you.jpg",
-//     "songname": "Girls Like You",
-//     "artist": "Maroon 5"
-//   },
-//   {
-//     "img": "assets/Mayanadhi.jpg",
-//     "songname": "Mizhiyil Ninnum",
-//     "artist": "Shahabaz Aman"
-//   },
-//   {
-//     "img": "assets/Hridayam.jpg",
-//     "songname": "Nagumo",
-//     "artist": "Venugopal Anand"
-//   },
-//   {
-//     "img": "assets/Hope_tentacion.jpg",
-//     "songname": "Hope",
-//     "artist": "XXX Tentacion"
-//   },
-//   {
-//     "img": "assets/Heat_Waves2.jpg",
-//     "songname": "Heat Waves",
-//     "artist": "Glass Animals"
-//   },
-//   {
-//     "img": "assets/Shape_of_you.png",
-//     "songname": "Shape Of You",
-//     "artist": "Ed Sheeran"
-//   },
-//   {
-//     "img": "assets/Girls_like_you.jpg",
-//     "songname": "Girls Like You",
-//     "artist": "Maroon 5"
-//   },
-//   {
-//     "img": "assets/Mayanadhi.jpg",
-//     "songname": "Mizhiyil Ninnum",
-//     "artist": "Shahabaz Aman"
-//   },
-//   {
-//     "img": "assets/Hridayam.jpg",
-//     "songname": "Nagumo",
-//     "artist": "Venugopal Anand"
-//   },
-// ];

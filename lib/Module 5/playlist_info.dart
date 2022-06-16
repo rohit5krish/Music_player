@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_single_cascade_in_expression_statements, invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: avoid_single_cascade_in_expression_statements, invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member, prefer_const_constructors
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
@@ -101,8 +101,6 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
                     color: white,
                     size: 50,
                   ),
-                  //  Image.asset('assets/mast_magan.jpg',
-                  //     height: 150, width: 150)
                 ),
                 SizedBox(height: 10),
                 Text(
@@ -335,13 +333,6 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
                                     dbsongs[index].songname, plylstsongs.value)
                                 ? IconButton(
                                     onPressed: () {
-                                      // checkAdded(dbsongs[index].songname,
-                                      //         plylstsongs.value)
-                                      //     ? addedNoti(
-                                      //         isadd: true,
-                                      //         ctx: context,
-                                      //         isfav: widget.boxkey)
-                                      //     :
                                       addtodb(index);
                                       getSongs();
                                     },

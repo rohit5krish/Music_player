@@ -13,7 +13,6 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 ValueNotifier<List<audioModel>> favsonglist = ValueNotifier([]);
 final String favsongs = 'favsongs';
-// List<audioModel> favAddSong = dbsongs;
 ValueNotifier<List<Audio>> finalfavsongs = ValueNotifier([]);
 
 class Favourites extends StatefulWidget {
@@ -27,7 +26,6 @@ class _FavouritesState extends State<Favourites> {
   @override
   void initState() {
     super.initState();
-    // favsonglist.value = dbBox.get(favsongs)!.cast<audioModel>(); (( Added in Main Function at start ))
     getFavSongs();
   }
 
@@ -161,13 +159,6 @@ class _FavouritesState extends State<Favourites> {
                                     dbsongs[index].songname, favsonglist.value)
                                 ? IconButton(
                                     onPressed: () {
-                                      // checkAdded(dbsongs[index].songname,
-                                      //         favsonglist.value)
-                                      //     ? addedNoti(
-                                      //         isadd: true,
-                                      //         ctx: ctx,
-                                      //         isfav: 'Favourites')
-                                      //     :
                                       addFavtoDb(index);
                                       getFavSongs();
                                     },

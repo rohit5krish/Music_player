@@ -1,10 +1,11 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_declarations
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 import 'package:music_player/DB/data_model.dart';
 import 'package:music_player/Module%201/home_page.dart';
 import 'package:music_player/Module%202/play_song.dart';
-import 'package:music_player/Module%206/now_playing.dart';
 import 'package:music_player/Widgets/home_widgets.dart';
 import 'package:music_player/splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';

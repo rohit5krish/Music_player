@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
-import 'package:music_player/DB/data_model.dart';
 
 import 'package:music_player/Module%202/recent.dart';
 import 'package:music_player/Module%203/favourites.dart';
 import 'package:music_player/Module%204/playlist.dart';
-import 'package:music_player/Module%205/playlist_info.dart';
 import 'package:music_player/Widgets/playlist_widgets.dart';
 import 'package:music_player/splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -112,42 +110,6 @@ class topHomeCards extends StatelessWidget {
     );
   }
 }
-
-//Contents in Bottom My Music
-// class MyMusicCont extends StatefulWidget {
-//   const MyMusicCont({Key? key}) : super(key: key);
-
-//   @override
-//   State<MyMusicCont> createState() => _MyMusicContState();
-// }
-
-// class _MyMusicContState extends State<MyMusicCont> {
-//   @override
-//   Widget build(BuildContext context) {
-//     final double screenheight = MediaQuery.of(context).size.height;
-//     final double screenwidth = MediaQuery.of(context).size.width;
-
-//     return
-//   }
-// }
-
-//Song Thumbnail Image
-// class songCoverImg extends StatelessWidget {
-//   final String img;
-
-//   const songCoverImg({required this.img});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ClipRRect(
-//       borderRadius: BorderRadius.circular(5),
-//       child: Image.asset(
-//         img,
-//         fit: BoxFit.cover,
-//       ),
-//     );
-//   }
-// }
 
 //Songs List Making
 class Songs extends StatelessWidget {
@@ -277,8 +239,3 @@ bool checkAdded(String songname, List songslist) {
     return false;
   }
 }
-
-// Audio find(List<Audio> source, String frompath) {
-//   return source.firstWhere((element) => element.path == frompath);
-// }
-

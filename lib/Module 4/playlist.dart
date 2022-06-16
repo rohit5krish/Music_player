@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_declarations
 
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
@@ -8,7 +8,7 @@ import 'package:music_player/Widgets/playlist_widgets.dart';
 import 'package:music_player/splash.dart';
 
 class musicPlaylist extends StatefulWidget {
-  musicPlaylist({Key? key}) : super(key: key);
+  const musicPlaylist({Key? key}) : super(key: key);
 
   @override
   State<musicPlaylist> createState() => _musicPlaylistState();
@@ -155,13 +155,6 @@ class _musicPlaylistState extends State<musicPlaylist> {
           );
         });
   }
-
-  // deletebox() async {
-  //   await dbBox.delete(boxname);
-  //   await Hive.box(boxname).clear();
-  //   await Hive.box(boxname).close();
-  // }
-
 }
 
 showBottom(

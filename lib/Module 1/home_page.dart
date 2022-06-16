@@ -145,14 +145,6 @@ class _HomePageState extends State<HomePage> {
                                     : SizedBox(
                                         height: 10,
                                       )
-                                // Text(
-                                //   'Total 9 songs',
-                                //   style: white54txt14,
-                                //   textAlign: TextAlign.center,
-                                // ),
-                                // SizedBox(
-                                //   height: 25,
-                                // )
                               ],
                             ),
                           )

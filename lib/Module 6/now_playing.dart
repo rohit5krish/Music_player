@@ -4,7 +4,6 @@ import 'dart:ui';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 import 'package:music_player/Module%203/favourites.dart';
 import 'package:music_player/Widgets/home_widgets.dart';
@@ -14,20 +13,9 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
 
-// void setupSongs() async {
-//   await audioPlayer.open(Playlist(audios: finalsonglist),
-//       showNotification: true,
-//       notificationSettings:
-//           NotificationSettings(stopEnabled: false, seekBarEnabled: true),
-//       autoStart: false,
-//       loopMode: LoopMode.none);
-// }
-
-// final List<Audio> audiofiles = [];
-
 //Current Playing Song at Home screen Bottom
 class crntplayinghom extends StatefulWidget {
-  crntplayinghom({Key? key}) : super(key: key);
+  const crntplayinghom({Key? key}) : super(key: key);
 
   @override
   State<crntplayinghom> createState() => _crntplayinghomState();
@@ -44,14 +32,7 @@ class _crntplayinghomState extends State<crntplayinghom> {
               size: 40,
             ),
             id: int.parse(realtimePlayingInfos.current!.audio.audio.metas.id!),
-            type: ArtworkType.AUDIO)
-        // Image.asset(
-        //   // realtimePlayingInfos.current!.audio.audio.metas.image!.path,
-        //   fit: BoxFit.cover,
-        //   height: 50,
-        //   width: 50,
-        // ),
-        );
+            type: ArtworkType.AUDIO));
   }
 
   @override
@@ -95,13 +76,7 @@ class _crntplayinghomState extends State<crntplayinghom> {
                                   children: [
                                     SizedBox(
                                       width: 120,
-                                      child:
-                                          // Marquee(
-                                          //   text:
-                                          //       audioPlayer.getCurrentAudioTitle,
-                                          //   style: whitetxt15,
-                                          // )
-                                          Text(
+                                      child: Text(
                                         audioPlayer.getCurrentAudioTitle,
                                         style: whitetxt15,
                                         overflow: TextOverflow.ellipsis,
@@ -374,9 +349,6 @@ class _NowPlayingState extends State<NowPlaying> {
                                     onPressed: () {
                                       int index;
                                       for (var element in dbsongs) {
-                                        // audioPlayer.getCurrentAudioTitle == element.songname?
-                                        // index= dbsongs.indexOf(element):
-                                        // index= 0;
                                         if (audioPlayer.getCurrentAudioTitle ==
                                             element.songname) {
                                           index = dbsongs.indexOf(element);

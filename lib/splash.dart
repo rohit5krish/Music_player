@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (pref.getBool(prefKey) != null) {
       prefbool = pref.getBool(prefKey)!;
     } else {
-      prefbool = false;
+      prefbool = true;
     }
   }
 

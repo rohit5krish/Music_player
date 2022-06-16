@@ -1,15 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music_player/Module%201/settings.dart';
 import 'package:music_player/Module%202/recent.dart';
 import 'package:music_player/Module%206/now_playing.dart';
-import 'package:music_player/Widgets/home_widgets.dart';
 
 class playSong {
-  // final List<Audio> songrecent;
-  // final int index;
-
-  // playSong(this.songrecent, this.index);
-
   playinglist(List<Audio> songsinlist, int index) {
     audioPlayer.open(
         Playlist(
