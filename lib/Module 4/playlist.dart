@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_declarations
-
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 import 'package:music_player/DB/data_model.dart';
@@ -15,7 +13,7 @@ class musicPlaylist extends StatefulWidget {
 }
 
 ValueNotifier<List<String>> plylst = ValueNotifier([]);
-final String plylstlisting = 'plylist';
+const String plylstlisting = 'plylist';
 getFromDb() {
   plylst.value = dbBox.get(plylstlisting)!.cast<String>();
 }
@@ -59,28 +57,28 @@ class _musicPlaylistState extends State<musicPlaylist> {
                         selectedlist.clear();
                       });
                     },
-                    icon: Icon(Icons.close))
+                    icon: const Icon(Icons.close))
                 : IconButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.arrow_back_ios_new_rounded)),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded)),
             actions: [
               selectedlist.length >= 1
                   ? IconButton(
                       onPressed: () {
                         gridDeletion();
                       },
-                      icon: Icon(Icons.delete))
+                      icon: const Icon(Icons.delete))
                   : IconButton(
                       onPressed: () {
                         showBottom(context: context, addply: false);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add_circle_outline,
                         size: 28,
                       )),
-              SizedBox(
+              const SizedBox(
                 width: 7,
               )
             ],
@@ -98,11 +96,13 @@ class _musicPlaylistState extends State<musicPlaylist> {
                         ),
                       )
                     : GridView.builder(
-                        padding: EdgeInsets.only(top: 30, left: 10, right: 10),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 40),
+                        padding:
+                            const EdgeInsets.only(top: 30, left: 10, right: 10),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 40),
                         itemCount: plylst.length,
                         itemBuilder: (context, index) {
                           return playlistalbums(
@@ -128,9 +128,9 @@ class _musicPlaylistState extends State<musicPlaylist> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Delete Playlist?'),
-            content:
-                Text('Are You Sure To Want to Delete the Selected Playlists?'),
+            title: const Text('Delete Playlist?'),
+            content: const Text(
+                'Are You Sure To Want to Delete the Selected Playlists?'),
             actions: [
               TextButton(
                   onPressed: () async {
@@ -145,12 +145,12 @@ class _musicPlaylistState extends State<musicPlaylist> {
                     });
                     Navigator.of(context).pop();
                   },
-                  child: Text('Yes')),
+                  child: const Text('Yes')),
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('No'))
+                  child: const Text('No'))
             ],
           );
         });
@@ -164,12 +164,13 @@ showBottom(
   showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: bggradient1,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+      shape: const RoundedRectangleBorder(
+          borderRadius:
+              const BorderRadius.vertical(top: Radius.circular(25.0))),
       context: context,
       builder: (context) {
         return Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 40,
             left: 20,
             right: 20,
@@ -185,7 +186,7 @@ showBottom(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Padding(
@@ -196,12 +197,12 @@ showBottom(
                   controller: playlistctrl,
                   style: TextStyle(color: white),
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       hintText: 'Playlist Name',
                       hintStyle: TextStyle(color: Colors.grey[350])),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Row(
@@ -215,7 +216,7 @@ showBottom(
                         Navigator.of(context).pop();
                         playlistctrl.clear();
                       },
-                      child: Text('Cancel'),
+                      child: const Text('Cancel'),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.grey)),
@@ -240,10 +241,10 @@ showBottom(
                             Navigator.of(context).pop();
                             playlistctrl.clear();
                           },
-                          child: Text('Create'))),
+                          child: const Text('Create'))),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               )
             ],

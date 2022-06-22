@@ -16,7 +16,7 @@ class songSearch extends SearchDelegate<String> {
           onPressed: () {
             query = '';
           },
-          icon: Icon(Icons.clear))
+          icon: const Icon(Icons.clear))
     ];
   }
 
@@ -26,7 +26,7 @@ class songSearch extends SearchDelegate<String> {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        icon: Icon(Icons.arrow_back));
+        icon: const Icon(Icons.arrow_back));
   }
 
   @override
@@ -82,7 +82,7 @@ class songSearch extends SearchDelegate<String> {
             (c) => c.metas.title!.toLowerCase().startsWith(query.toLowerCase()))
         .toList();
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       color: bodyclr,
       child: ListView.builder(
           itemCount: result.length,

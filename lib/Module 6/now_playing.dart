@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:ui';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -47,7 +45,7 @@ class _crntplayinghomState extends State<crntplayinghom> {
               borderRadius: BorderRadius.circular(15),
               color: nowplayingbtm,
             ),
-            padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
             child: audioPlayer.builderRealtimePlayingInfos(
                 builder: (context, realtimePlayingInfos) {
               if (realtimePlayingInfos != null) {
@@ -61,13 +59,13 @@ class _crntplayinghomState extends State<crntplayinghom> {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return NowPlaying();
+                                return const NowPlaying();
                               }));
                             },
                             child: Row(
                               children: [
                                 audioImage(realtimePlayingInfos),
-                                SizedBox(
+                                const SizedBox(
                                   width: 15,
                                 ),
                                 Column(
@@ -95,82 +93,82 @@ class _crntplayinghomState extends State<crntplayinghom> {
                               ],
                             )),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 16, right: 15),
+                          padding: const EdgeInsets.only(bottom: 0, right: 0),
                           child: Row(
                             children: [
                               realtimePlayingInfos.current!.audio.audio !=
                                       audioPlayer.playlist!.audios[0]
                                   ? IconButton(
-                                      constraints: BoxConstraints(),
-                                      // padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 25),
                                       onPressed: () {
                                         audioPlayer.previous();
                                       },
                                       icon: Icon(
                                         Icons.skip_previous_rounded,
                                         color: white,
-                                        size: 40,
+                                        size: 50,
                                       ))
                                   : IconButton(
-                                      constraints: BoxConstraints(),
-                                      // padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 25),
                                       onPressed: () {},
                                       icon: Icon(
                                         Icons.skip_previous_rounded,
-                                        color: Colors.black,
-                                        size: 40,
+                                        color: Colors.grey.withOpacity(0.5),
+                                        size: 50,
                                       )),
-                              SizedBox(
-                                width: 10,
+                              const SizedBox(
+                                width: 25,
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Container(
-                                  height: 45,
-                                  width: 48,
-                                  child: IconButton(
-                                      constraints: BoxConstraints(),
-                                      padding: EdgeInsets.zero,
-                                      onPressed: () {
-                                        realtimePlayingInfos.isPlaying
-                                            ? audioPlayer.pause()
-                                            : audioPlayer.play();
-                                      },
-                                      icon: Icon(
-                                        realtimePlayingInfos.isPlaying
-                                            ? Icons.pause_circle
-                                            : Icons.play_circle,
-                                        color: white,
-                                        size: 55,
-                                      )),
-                                ),
+                                padding: const EdgeInsets.only(bottom: 7),
+                                child: IconButton(
+                                    // constraints: BoxConstraints(),
+                                    padding: EdgeInsets.zero,
+                                    onPressed: () {
+                                      realtimePlayingInfos.isPlaying
+                                          ? audioPlayer.pause()
+                                          : audioPlayer.play();
+                                    },
+                                    icon: Icon(
+                                      realtimePlayingInfos.isPlaying
+                                          ? Icons.pause_circle
+                                          : Icons.play_circle,
+                                      color: white,
+                                      size: 55,
+                                    )),
                               ),
-                              SizedBox(
-                                width: 20,
+                              const SizedBox(
+                                width: 5,
                               ),
                               realtimePlayingInfos.current!.audio.audio !=
                                       audioPlayer.playlist!.audios[(audioPlayer
                                               .playlist!.audios.length) -
                                           1]
                                   ? IconButton(
-                                      constraints: BoxConstraints(),
-                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      padding: const EdgeInsets.only(
+                                          right: 18, bottom: 25),
                                       onPressed: () {
                                         audioPlayer.next();
                                       },
                                       icon: Icon(
                                         Icons.skip_next_rounded,
                                         color: white,
-                                        size: 45,
+                                        size: 50,
                                       ))
                                   : IconButton(
-                                      constraints: BoxConstraints(),
-                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      padding: const EdgeInsets.only(
+                                          right: 18, bottom: 25),
                                       onPressed: () {},
                                       icon: Icon(
                                         Icons.skip_next_rounded,
-                                        color: Colors.black,
-                                        size: 45,
+                                        color: Colors.grey.withOpacity(0.5),
+                                        size: 50,
                                       )),
                             ],
                           ),
@@ -248,8 +246,8 @@ class _NowPlayingState extends State<NowPlaying> {
     return audioPlayer.builderRealtimePlayingInfos(
         builder: (context, realtimePlayingInfos) {
       return Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
+        decoration: const BoxDecoration(
+            image: const DecorationImage(
                 image: AssetImage('assets/pexels-negative-space-97077.jpg'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(Colors.black, BlendMode.screen),
@@ -263,19 +261,19 @@ class _NowPlayingState extends State<NowPlaying> {
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: Colors.transparent,
-                title: Text('Now Playing'),
+                title: const Text('Now Playing'),
                 centerTitle: true,
                 leading: IconButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.arrow_back_ios_new_rounded)),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded)),
               ),
               body: Container(
                 width: double.infinity,
                 child: Column(
                   children: [
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
 
                     //Song Image
                     ClipRRect(
@@ -295,7 +293,7 @@ class _NowPlayingState extends State<NowPlaying> {
                             id: int.parse(realtimePlayingInfos
                                 .current!.audio.audio.metas.id!),
                             type: ArtworkType.AUDIO)),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     //Songs Name
                     SizedBox(
                       width: 200,
@@ -305,19 +303,19 @@ class _NowPlayingState extends State<NowPlaying> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
 
                     //Bottom controls Container
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
                             color: cardshomecolor,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(40),
                                 topRight: Radius.circular(40))),
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             //Favourites and playlists adding button
@@ -338,7 +336,7 @@ class _NowPlayingState extends State<NowPlaying> {
                                     icon: checkAdded(
                                             audioPlayer.getCurrentAudioTitle,
                                             favsonglist.value)
-                                        ? Icon(
+                                        ? const Icon(
                                             Icons.favorite_rounded,
                                             color: Colors.red,
                                             size: 30,
@@ -349,7 +347,7 @@ class _NowPlayingState extends State<NowPlaying> {
                                             size: 30,
                                           )),
                                 IconButton(
-                                    padding: EdgeInsets.all(0),
+                                    padding: const EdgeInsets.all(0),
                                     onPressed: () {
                                       int index;
                                       for (var element in dbsongs) {
@@ -369,7 +367,7 @@ class _NowPlayingState extends State<NowPlaying> {
                                     ))
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 40,
                             ),
 
@@ -404,7 +402,7 @@ class _NowPlayingState extends State<NowPlaying> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 40,
                             ),
                             //Music Controllers
@@ -415,23 +413,23 @@ class _NowPlayingState extends State<NowPlaying> {
                                 realtimePlayingInfos.current!.audio.audio !=
                                         audioPlayer.playlist!.audios[0]
                                     ? IconButton(
-                                        padding: EdgeInsets.all(0),
+                                        padding: const EdgeInsets.all(0),
                                         onPressed: () {
                                           audioPlayer.previous();
                                         },
                                         icon: Icon(Icons.skip_previous_rounded,
                                             color: white, size: 60))
                                     : IconButton(
-                                        constraints: BoxConstraints(),
+                                        constraints: const BoxConstraints(),
                                         // padding: EdgeInsets.zero,
                                         onPressed: () {},
                                         icon: Icon(
                                           Icons.skip_previous_rounded,
-                                          color: Colors.black,
+                                          color: Colors.grey.withOpacity(0.5),
                                           size: 60,
                                         )),
                                 IconButton(
-                                    padding: EdgeInsets.all(0),
+                                    padding: const EdgeInsets.all(0),
                                     onPressed: () {
                                       realtimePlayingInfos.isPlaying
                                           ? audioPlayer.pause()
@@ -449,17 +447,18 @@ class _NowPlayingState extends State<NowPlaying> {
                                                     .playlist!.audios.length) -
                                                 1]
                                     ? IconButton(
-                                        padding: EdgeInsets.all(0),
+                                        padding: const EdgeInsets.all(0),
                                         onPressed: () {
                                           audioPlayer.next();
                                         },
                                         icon: Icon(Icons.skip_next_rounded,
                                             color: white, size: 60))
                                     : IconButton(
-                                        padding: EdgeInsets.all(0),
+                                        padding: const EdgeInsets.all(0),
                                         onPressed: () {},
                                         icon: Icon(Icons.skip_next_rounded,
-                                            color: Colors.black, size: 60)),
+                                            color: Colors.grey.withOpacity(0.5),
+                                            size: 60)),
                               ],
                             )
                           ],

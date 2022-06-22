@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 import 'package:music_player/Module%201/search.dart';
@@ -47,16 +45,16 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return Settings();
+                  return const Settings();
                 }));
               },
-              icon: Icon(Icons.settings)),
+              icon: const Icon(Icons.settings)),
           actions: [
             IconButton(
                 onPressed: () {
                   showSearch(context: context, delegate: songSearch());
                 },
-                icon: Icon(Icons.search_rounded))
+                icon: const Icon(Icons.search_rounded))
           ],
         ),
         body: Column(
@@ -65,7 +63,7 @@ class _HomePageState extends State<HomePage> {
               height: screenheight * 0.03,
             ),
             //Top 3 Cards
-            topHomeCards(),
+            const topHomeCards(),
             SizedBox(
               height: screenheight * 0.06,
             ),
@@ -82,7 +80,8 @@ class _HomePageState extends State<HomePage> {
                       decoration: mymusicdecor,
                       width: screenwidth,
                       height: screenheight,
-                      padding: EdgeInsets.only(top: 45, left: 25, right: 25),
+                      padding:
+                          const EdgeInsets.only(top: 45, left: 25, right: 25),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -139,10 +138,10 @@ class _HomePageState extends State<HomePage> {
                                       );
                                     }),
                                 isVisible
-                                    ? SizedBox(
+                                    ? const SizedBox(
                                         height: 70,
                                       )
-                                    : SizedBox(
+                                    : const SizedBox(
                                         height: 10,
                                       )
                               ],
@@ -153,7 +152,8 @@ class _HomePageState extends State<HomePage> {
                     ),
 
                     //Current Playing bottom bar
-                    Visibility(visible: isVisible, child: crntplayinghom())
+                    Visibility(
+                        visible: isVisible, child: const crntplayinghom())
                   ],
                 ));
               },

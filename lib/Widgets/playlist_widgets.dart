@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_is_empty, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
@@ -13,7 +13,11 @@ class playlistalbums extends StatefulWidget {
   final int index;
   final ValueChanged<bool> isSelected;
   const playlistalbums(
-      {required this.name, required this.index, required this.isSelected});
+      {Key? key,
+      required this.name,
+      required this.index,
+      required this.isSelected})
+      : super(key: key);
 
   @override
   State<playlistalbums> createState() => _playlistalbumsState();
@@ -23,11 +27,9 @@ List<String> selectedlist = [];
 
 class _playlistalbumsState extends State<playlistalbums> {
   bool isSelected = false;
-  // var isChecked = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     plylstsongs.value = dbBox.get(widget.name)!.cast<audioModel>();
   }
@@ -53,7 +55,7 @@ class _playlistalbumsState extends State<playlistalbums> {
       },
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 130,
             width: 130,
             child: ClipRRect(
@@ -83,7 +85,7 @@ class _playlistalbumsState extends State<playlistalbums> {
                   ),
                 )),
           ),
-          SizedBox(
+          const SizedBox(
             height: 9,
           ),
           Text(
@@ -114,12 +116,12 @@ selectPlaylist(BuildContext context, audioModel element) {
         return Container(
           decoration: BoxDecoration(
               color: bggradient1,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(50))),
           width: double.infinity,
           height: 300,
           child: Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 30,
               left: 15,
               right: 15,
@@ -132,7 +134,7 @@ selectPlaylist(BuildContext context, audioModel element) {
                         color: white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold)),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Expanded(
@@ -171,7 +173,7 @@ selectPlaylist(BuildContext context, audioModel element) {
                                           'Already added',
                                           style: white30txt12,
                                         )
-                                      : Text(''),
+                                      : const Text(''),
                                 ),
                               );
                             })),
@@ -181,7 +183,7 @@ selectPlaylist(BuildContext context, audioModel element) {
                       showBottom(
                           context: context, addply: true, element: element);
                     },
-                    child: Text('New Playlist'),
+                    child: const Text('New Playlist'),
                     style: ElevatedButton.styleFrom(primary: Colors.purple))
               ],
             ),

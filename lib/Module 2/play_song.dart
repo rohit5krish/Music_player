@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music_player/Module%201/settings.dart';
 import 'package:music_player/Module%202/recent.dart';
@@ -13,8 +11,8 @@ class playSong {
           audios: songsinlist,
           startIndex: index,
         ),
-        notificationSettings:
-            NotificationSettings(stopEnabled: false, seekBarEnabled: true),
+        notificationSettings: const NotificationSettings(
+            stopEnabled: false, seekBarEnabled: true),
         autoStart: true,
         loopMode: LoopMode.none,
         showNotification: isSwitched.value);

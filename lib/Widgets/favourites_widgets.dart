@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: camel_case_types, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
@@ -13,10 +13,12 @@ class favList extends StatelessWidget {
   final String songname;
   final String artist;
   favList(
-      {required this.index,
+      {Key? key,
+      required this.index,
       required this.id,
       required this.songname,
-      required this.artist});
+      required this.artist})
+      : super(key: key);
 
   static const removfav = 'Remove from Favourites';
   static const addplylist = 'Add to Playlist';
@@ -52,7 +54,7 @@ class favList extends StatelessWidget {
         ),
         trailing: PopupMenuButton(
             onSelected: favpopselection,
-            icon: Icon(Icons.more_vert, color: Colors.grey),
+            icon: const Icon(Icons.more_vert, color: Colors.grey),
             itemBuilder: (context) {
               return [
                 ...favpoplist.map((value) {

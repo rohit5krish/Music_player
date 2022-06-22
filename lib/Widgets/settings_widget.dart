@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 
@@ -33,7 +31,7 @@ class termsNcond extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Terms And Conditions'),
+        title: const Text('Terms And Conditions'),
         centerTitle: true,
         backgroundColor: bggradient1,
         elevation: 0,

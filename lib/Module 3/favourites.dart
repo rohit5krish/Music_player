@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_declarations, prefer_const_constructors
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
@@ -12,7 +10,7 @@ import 'package:music_player/splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 ValueNotifier<List<audioModel>> favsonglist = ValueNotifier([]);
-final String favsongs = 'favsongs';
+const String favsongs = 'favsongs';
 ValueNotifier<List<Audio>> finalfavsongs = ValueNotifier([]);
 
 class Favourites extends StatefulWidget {
@@ -44,24 +42,24 @@ class _FavouritesState extends State<Favourites> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: Text('Favourites'),
+          title: const Text('Favourites'),
           centerTitle: true,
           toolbarHeight: 65,
           leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              icon: Icon(Icons.arrow_back_ios_new_rounded)),
+              icon: const Icon(Icons.arrow_back_ios_new_rounded)),
           actions: [
             IconButton(
                 onPressed: () {
                   addsongfavourites(context);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.add_circle_outline_outlined,
                   size: 28,
                 )),
-            SizedBox(
+            const SizedBox(
               width: 7,
             )
           ],
@@ -118,13 +116,13 @@ class _FavouritesState extends State<Favourites> {
           return Container(
             decoration: BoxDecoration(
                 color: bggradient1,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50))),
+                borderRadius: const BorderRadius.only(
+                    topLeft: const Radius.circular(50),
+                    topRight: const Radius.circular(50))),
             width: double.infinity,
             height: 500,
             child: Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: 40,
                 left: 20,
                 right: 20,
@@ -137,7 +135,7 @@ class _FavouritesState extends State<Favourites> {
                           color: white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Expanded(
                     child: ListView.builder(
                         itemCount: dbsongs.length,
@@ -162,8 +160,9 @@ class _FavouritesState extends State<Favourites> {
                                       addFavtoDb(index);
                                       getFavSongs();
                                     },
-                                    icon: Icon(Icons.add, color: Colors.grey))
-                                : Text(''),
+                                    icon: const Icon(Icons.add,
+                                        color: Colors.grey))
+                                : const Text(''),
                           );
                         }),
                   )

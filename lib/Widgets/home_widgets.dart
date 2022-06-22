@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_single_cascade_in_expression_statements, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member, must_be_immutable, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 
@@ -22,7 +24,7 @@ class topHomeCards extends StatelessWidget {
         InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return Recent();
+              return const Recent();
             }));
           },
           child: Container(
@@ -51,7 +53,7 @@ class topHomeCards extends StatelessWidget {
         InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return Favourites();
+              return const Favourites();
             }));
           },
           child: Container(
@@ -80,7 +82,7 @@ class topHomeCards extends StatelessWidget {
         InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return musicPlaylist();
+              return const musicPlaylist();
             }));
           },
           child: Container(
@@ -119,10 +121,12 @@ class Songs extends StatelessWidget {
   final int index;
 
   Songs(
-      {required this.img,
+      {Key? key,
+      required this.img,
       required this.songname,
       required this.artist,
-      required this.index});
+      required this.index})
+      : super(key: key);
 
   static const String addplaylist = 'Add to Playlist';
   static const String addfavourite = 'Add to Favourites';
@@ -138,8 +142,8 @@ class Songs extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(height: 50, width: 50, child: img),
-                SizedBox(
+                SizedBox(height: 50, width: 50, child: img),
+                const SizedBox(
                   width: 10,
                 ),
                 SingleChildScrollView(
@@ -173,7 +177,7 @@ class Songs extends StatelessWidget {
               ],
             ),
             PopupMenuButton(
-              icon: Icon(Icons.more_vert, color: Colors.grey),
+              icon: const Icon(Icons.more_vert, color: Colors.grey),
               itemBuilder: (context) {
                 return [
                   ...popuplist.map((String value) {
@@ -182,17 +186,17 @@ class Songs extends StatelessWidget {
                         value: value,
                         child: Text(
                           value,
-                          style: TextStyle(fontSize: 12),
+                          style: const TextStyle(fontSize: 12),
                         ));
                   }).toList()
                 ];
               },
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               onSelected: popupselection,
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
       ],
@@ -220,7 +224,7 @@ addedNoti(
     {required bool isadd, required BuildContext ctx, required String isfav}) {
   ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
       backgroundColor: bggradient1,
-      duration: Duration(seconds: 4),
+      duration: const Duration(seconds: 4),
       content:
           isadd ? Text('Already Added to $isfav') : Text('Added to $isfav')));
 }

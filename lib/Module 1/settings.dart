@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_declarations
-
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
 import 'package:music_player/Widgets/settings_widget.dart';
@@ -15,7 +13,7 @@ class Settings extends StatefulWidget {
 }
 
 ValueNotifier<bool> isSwitched = ValueNotifier(prefbool);
-final String prefKey = 'sharedpref';
+const String prefKey = 'sharedpref';
 
 class _SettingsState extends State<Settings> {
   //Settings Contents
@@ -45,8 +43,8 @@ class _SettingsState extends State<Settings> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: Icon(Icons.arrow_back_ios_new_rounded)),
-        title: Text('Settings'),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+        title: const Text('Settings'),
       ),
       backgroundColor: bodyclr,
       body: ListView.builder(
@@ -95,8 +93,9 @@ class _SettingsState extends State<Settings> {
   aboutBottom() {
     showModalBottomSheet(
         backgroundColor: bggradient1,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+        shape: const RoundedRectangleBorder(
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(25))),
         context: context,
         builder: (context) {
           return Padding(
@@ -108,28 +107,28 @@ class _SettingsState extends State<Settings> {
                   'About',
                   style: whitetxt22,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
                   'Version 1.0.0',
                   style: whitetxt15,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Text(
                   'Email : rohitkrishnark5@gmail.com',
                   style: whitetxt15,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 17,
                 ),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('Ok'))
+                    child: const Text('Ok'))
               ],
             ),
           );

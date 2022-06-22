@@ -35,7 +35,7 @@ Future<void> main() async {
   //  else if (boxKeys.contains(recent)) {
   //   recentdbsongs = dbBox.get(recent)!.cast<audioModel>();
   // }
-  runApp(MusicPlayer());
+  runApp(const MusicPlayer());
 }
 
 class MusicPlayer extends StatefulWidget {
@@ -49,13 +49,13 @@ class _MusicPlayerState extends State<MusicPlayer> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(360, 690),
+        designSize: const Size(360, 690),
         splitScreenMode: true,
         minTextAdapt: true,
         builder: (context, child) {
           return MaterialApp(
             theme: ThemeData(primarySwatch: Colors.blue),
-            home: SplashScreen(),
+            home: const SplashScreen(),
             debugShowCheckedModeBanner: false,
           );
         });

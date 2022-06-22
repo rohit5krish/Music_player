@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_declarations
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/Colors/screen_colors.dart';
@@ -12,7 +10,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 List<audioModel> recentdbsongs = [];
 List<Audio> finalrecent = [];
-final String recent = 'recent';
+const String recent = 'recent';
 
 getRecsongs() {
   finalrecent.clear();
@@ -66,18 +64,18 @@ class _RecentState extends State<Recent> {
                 });
                 dbBox.put(recent, recentdbsongs);
               },
-              icon: Icon(Icons.delete))
+              icon: const Icon(Icons.delete))
         ],
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text('Recent'),
+        title: const Text('Recent'),
         centerTitle: true,
         toolbarHeight: 65,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: Icon(Icons.arrow_back_ios_new_rounded)),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
       ),
       backgroundColor: bodyclr,
       body: Padding(
