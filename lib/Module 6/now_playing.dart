@@ -124,22 +124,26 @@ class _crntplayinghomState extends State<crntplayinghom> {
                                 width: 10,
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: IconButton(
-                                    constraints: BoxConstraints(),
-                                    padding: EdgeInsets.zero,
-                                    onPressed: () {
-                                      realtimePlayingInfos.isPlaying
-                                          ? audioPlayer.pause()
-                                          : audioPlayer.play();
-                                    },
-                                    icon: Icon(
-                                      realtimePlayingInfos.isPlaying
-                                          ? Icons.pause_circle
-                                          : Icons.play_circle,
-                                      color: white,
-                                      size: 50,
-                                    )),
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Container(
+                                  height: 45,
+                                  width: 48,
+                                  child: IconButton(
+                                      constraints: BoxConstraints(),
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {
+                                        realtimePlayingInfos.isPlaying
+                                            ? audioPlayer.pause()
+                                            : audioPlayer.play();
+                                      },
+                                      icon: Icon(
+                                        realtimePlayingInfos.isPlaying
+                                            ? Icons.pause_circle
+                                            : Icons.play_circle,
+                                        color: white,
+                                        size: 55,
+                                      )),
+                                ),
                               ),
                               SizedBox(
                                 width: 20,
@@ -150,7 +154,7 @@ class _crntplayinghomState extends State<crntplayinghom> {
                                           1]
                                   ? IconButton(
                                       constraints: BoxConstraints(),
-                                      // padding: EdgeInsets.zero,
+                                      padding: EdgeInsets.zero,
                                       onPressed: () {
                                         audioPlayer.next();
                                       },
@@ -161,7 +165,7 @@ class _crntplayinghomState extends State<crntplayinghom> {
                                       ))
                                   : IconButton(
                                       constraints: BoxConstraints(),
-                                      // padding: EdgeInsets.zero,
+                                      padding: EdgeInsets.zero,
                                       onPressed: () {},
                                       icon: Icon(
                                         Icons.skip_next_rounded,
