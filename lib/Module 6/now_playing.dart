@@ -37,7 +37,7 @@ class _crntplayinghomState extends State<crntplayinghom> {
   Widget build(BuildContext context) {
     final double screenwidth = MediaQuery.of(context).size.width;
     return Padding(
-        padding: EdgeInsets.only(top: (screenwidth * 1.24)),
+        padding: EdgeInsets.only(bottom: 10),
         child: Container(
             width: screenwidth - 25,
             height: 73,
