@@ -45,6 +45,9 @@ dependencies:
   marquee: ^2.2.1
   share_plus: ^4.0.8
   flutter_screenutil: ^5.5.3+2
+  move_to_background: ^1.0.2
+  freezed_annotation: ^2.0.3
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +60,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
   build_runner: ^2.1.11
+  freezed: ^2.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

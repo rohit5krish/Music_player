@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:music_player/DB/data_model.dart';
-import 'package:music_player/Module%202/recent.dart';
-import 'package:music_player/Module%203/favourites.dart';
-import 'package:music_player/Module%204/playlist.dart';
+import 'package:music_player/application/home/home_bloc.dart';
+import 'package:music_player/domain/model/data_model.dart';
+import 'package:music_player/presentation/recent/recent.dart';
+import 'package:music_player/presentation/favorite/favourites.dart';
+import 'package:music_player/presentation/playlist/playlist.dart';
 import 'package:music_player/splash.dart';
 
 Future<void> main() async {
@@ -53,10 +55,15 @@ class _MusicPlayerState extends State<MusicPlayer> {
         splitScreenMode: true,
         minTextAdapt: true,
         builder: (context, child) {
-          return MaterialApp(
-            theme: ThemeData(primarySwatch: Colors.blue),
-            home: const SplashScreen(),
-            debugShowCheckedModeBanner: false,
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => HomeBloc()),
+            ],
+            child: MaterialApp(
+              theme: ThemeData(primarySwatch: Colors.blue),
+              home: const SplashScreen(),
+              debugShowCheckedModeBanner: false,
+            ),
           );
         });
   }
