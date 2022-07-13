@@ -1,5 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/presentation/favorite/favourites.dart';
 import 'package:music_player/presentation/home/widgets/songs_list.dart';
@@ -9,11 +11,13 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class plylistsngs extends StatefulWidget {
   final int index;
-  final Audio favSongData;
+  final Audio plylistSongData;
   final String boxkey;
 
   plylistsngs(
-      {required this.index, required this.favSongData, required this.boxkey});
+      {required this.index,
+      required this.plylistSongData,
+      required this.boxkey});
 
   static const removsong = 'Remove from Playlist';
   static const addfav = 'Add to Favourites';
@@ -51,7 +55,7 @@ class _plylistsngsState extends State<plylistsngs> {
                   child: QueryArtworkWidget(
                       nullArtworkWidget:
                           const Icon(Icons.music_note, color: white, size: 30),
-                      id: int.parse(widget.favSongData.metas.id.toString()),
+                      id: int.parse(widget.plylistSongData.metas.id.toString()),
                       type: ArtworkType.AUDIO)),
               const SizedBox(
                 width: 15,
@@ -62,7 +66,7 @@ class _plylistsngsState extends State<plylistsngs> {
                   SizedBox(
                     width: 200,
                     child: Text(
-                      widget.favSongData.metas.title.toString(),
+                      widget.plylistSongData.metas.title.toString(),
                       style: whitetxt15,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -70,9 +74,9 @@ class _plylistsngsState extends State<plylistsngs> {
                   SizedBox(
                       width: 200,
                       child: Text(
-                        widget.favSongData.metas.artist == '<unknown>'
+                        widget.plylistSongData.metas.artist == '<unknown>'
                             ? "Unknown Artist"
-                            : widget.favSongData.metas.artist.toString(),
+                            : widget.plylistSongData.metas.artist.toString(),
                         style: white54txt14,
                         overflow: TextOverflow.ellipsis,
                       ))
@@ -80,16 +84,35 @@ class _plylistsngsState extends State<plylistsngs> {
               ),
             ],
           ),
-          PopupMenuButton(
-            icon: const Icon(Icons.more_vert, color: Colors.grey),
-            itemBuilder: (context) {
-              return [
-                ...plylstpoplist.map((String value) {
-                  return PopupMenuItem(value: value, child: Text(value));
-                }).toList()
-              ];
+          BlocBuilder<FavoriteBloc, FavoriteState>(
+            builder: (context, state) {
+              return PopupMenuButton(
+                icon: const Icon(Icons.more_vert, color: Colors.grey),
+                itemBuilder: (context) {
+                  return [
+                    ...plylstpoplist.map((String value) {
+                      return PopupMenuItem(value: value, child: Text(value));
+                    }).toList()
+                  ];
+                },
+                onSelected: (value) {
+                  if (value == plylistsngs.removsong) {
+                    songDeletion();
+                    deleteNoti(context);
+                  } else if (value == plylistsngs.addfav) {
+                    // ignore: avoid_single_cascade_in_expression_statements
+                    checkAdded(widget.plylistSongData.metas.title.toString(),
+                            state.favSongList)
+                        ? addedNoti(isadd: true, ctx: ctx, isfav: 'Favourites')
+                        : BlocProvider.of<FavoriteBloc>(context).add(AddFavToDb(
+                            songData: plylstsongs.value[widget.index]));
+
+                    //  SnackBar
+                    addedNoti(isadd: false, ctx: ctx, isfav: 'Favourites');
+                  }
+                },
+              );
             },
-            onSelected: plylistpopselection,
           )
         ],
       ),
@@ -113,20 +136,7 @@ class _plylistsngsState extends State<plylistsngs> {
         content: const Text('Song removed from Playlist')));
   }
 
-  plylistpopselection(String value) async {
-    if (value == plylistsngs.removsong) {
-      songDeletion();
-      deleteNoti(context);
-    } else if (value == plylistsngs.addfav) {
-      checkAdded(widget.favSongData.metas.title.toString(), favsonglist.value)
-          ? addedNoti(isadd: true, ctx: ctx, isfav: 'Favourites')
-          : favsonglist.value = List.from(favsonglist.value)
-        ..add(plylstsongs.value[widget.index]);
-      await dbBox.put(favsongs, favsonglist.value);
-      favsonglist.notifyListeners();
+  // plylistpopselection(String value) async {
 
-      //  SnackBar
-      addedNoti(isadd: false, ctx: ctx, isfav: 'Favourites');
-    }
-  }
+  // }
 }

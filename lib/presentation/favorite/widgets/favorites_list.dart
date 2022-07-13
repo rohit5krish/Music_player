@@ -1,10 +1,9 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/core/constants.dart';
-import 'package:music_player/presentation/favorite/favourites.dart';
 import 'package:music_player/presentation/playlist/widgets/add_playlist.dart';
-import 'package:music_player/presentation/playlist/widgets/playlist_album.dart';
-import 'package:music_player/splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class favList extends StatelessWidget {
@@ -28,7 +27,8 @@ class favList extends StatelessWidget {
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: QueryArtworkWidget(
-              nullArtworkWidget: Icon(Icons.music_note, color: white, size: 30),
+              nullArtworkWidget:
+                  const Icon(Icons.music_note, color: white, size: 30),
               id: int.parse(favSongData.metas.id.toString()),
               type: ArtworkType.AUDIO),
         ),
@@ -50,26 +50,27 @@ class favList extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        trailing: PopupMenuButton(
-            onSelected: favpopselection,
-            icon: const Icon(Icons.more_vert, color: Colors.grey),
-            itemBuilder: (context) {
-              return [
-                ...favpoplist.map((value) {
-                  return PopupMenuItem(value: value, child: Text(value));
-                }).toList()
-              ];
-            }));
-  }
-
-  favpopselection(value) async {
-    if (value == removfav) {
-      favsonglist.value.removeAt(index);
-      favsonglist.notifyListeners();
-      getFavSongs();
-      await dbBox.put(favsongs, favsonglist.value);
-    } else if (value == addplylist) {
-      addToPlaylist(ctx, favsonglist.value[index]);
-    }
+        trailing: BlocBuilder<FavoriteBloc, FavoriteState>(
+          builder: (context, state) {
+            return PopupMenuButton(
+                onSelected: (value) {
+                  if (value == removfav) {
+                    BlocProvider.of<FavoriteBloc>(ctx)
+                        .add(DeleteFavSong(index: index));
+                    BlocProvider.of<FavoriteBloc>(ctx).add(const GetFavSong());
+                  } else if (value == addplylist) {
+                    addToPlaylist(ctx, state.favSongList[index]);
+                  }
+                },
+                icon: const Icon(Icons.more_vert, color: Colors.grey),
+                itemBuilder: (context) {
+                  return [
+                    ...favpoplist.map((value) {
+                      return PopupMenuItem(value: value, child: Text(value));
+                    }).toList()
+                  ];
+                });
+          },
+        ));
   }
 }

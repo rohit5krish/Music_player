@@ -2,6 +2,8 @@
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/presentation/favorite/favourites.dart';
 import 'package:music_player/presentation/playlist/widgets/add_playlist.dart';
@@ -75,23 +77,41 @@ class Songs extends StatelessWidget {
                 ),
               ],
             ),
-            PopupMenuButton(
-              icon: const Icon(Icons.more_vert, color: Colors.grey),
-              itemBuilder: (context) {
-                return [
-                  ...popuplist.map((String value) {
-                    return PopupMenuItem(
-                        height: 35,
-                        value: value,
-                        child: Text(
-                          value,
-                          style: const TextStyle(fontSize: 12),
-                        ));
-                  }).toList()
-                ];
+            BlocBuilder<FavoriteBloc, FavoriteState>(
+              builder: (context, state) {
+                return PopupMenuButton(
+                  icon: const Icon(Icons.more_vert, color: Colors.grey),
+                  itemBuilder: (context) {
+                    return [
+                      ...popuplist.map((String value) {
+                        return PopupMenuItem(
+                            height: 35,
+                            value: value,
+                            child: Text(
+                              value,
+                              style: const TextStyle(fontSize: 12),
+                            ));
+                      }).toList()
+                    ];
+                  },
+                  padding: const EdgeInsets.all(5),
+                  onSelected: (value) {
+                    if (value == addplaylist) {
+                      addToPlaylist(ctx, dbsongs[index]);
+                    } else if (value == addfavourite) {
+                      checkAdded(songData.metas.title.toString(),
+                              state.favSongList)
+                          ? addedNoti(
+                              isadd: true, ctx: ctx, isfav: 'Favourites')
+                          : BlocProvider.of<FavoriteBloc>(ctx)
+                              .add(AddFavToDb(songData: dbsongs[index]));
+
+                      //  SnackBar
+                      addedNoti(isadd: false, ctx: ctx, isfav: 'Favourites');
+                    }
+                  },
+                );
               },
-              padding: const EdgeInsets.all(5),
-              onSelected: popupselection,
             )
           ],
         ),
@@ -100,22 +120,6 @@ class Songs extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  popupselection(String value) async {
-    if (value == addplaylist) {
-      addToPlaylist(ctx, dbsongs[index]);
-    } else if (value == addfavourite) {
-      checkAdded(songData.metas.title.toString(), favsonglist.value)
-          ? addedNoti(isadd: true, ctx: ctx, isfav: 'Favourites')
-          : favsonglist.value = List.from(favsonglist.value)
-        ..add(dbsongs[index]);
-      await dbBox.put(favsongs, favsonglist.value);
-      favsonglist.notifyListeners();
-
-      //  SnackBar
-      addedNoti(isadd: false, ctx: ctx, isfav: 'Favourites');
-    }
   }
 }
 

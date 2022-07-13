@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/application/home/home_bloc.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/recent/recent.dart';
@@ -26,9 +27,8 @@ Future<void> main() async {
   }
 
   if (!(boxKeys.contains(favsongs))) {
-    dbBox.put(favsongs, favsonglist.value);
-  } else if (boxKeys.contains(favsongs)) {
-    favsonglist.value = dbBox.get(favsongs)!.cast<audioModel>();
+    List<audioModel> _favSongsList = [];
+    dbBox.put(favsongs, _favSongsList);
   }
 
   if (!(boxKeys.contains(recent))) {
@@ -58,6 +58,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
           return MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => HomeBloc()),
+              BlocProvider(create: (context) => FavoriteBloc()),
             ],
             child: MaterialApp(
               theme: ThemeData(primarySwatch: Colors.blue),

@@ -1,36 +1,22 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/application/home/home_bloc.dart';
 import 'package:music_player/core/constants.dart';
-import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/favorite/widgets/add_favorites.dart';
 import 'package:music_player/domain/play_song.dart';
 import 'package:music_player/presentation/favorite/widgets/favorites_list.dart';
 
-ValueNotifier<List<audioModel>> favsonglist = ValueNotifier([]);
 const String favsongs = 'favsongs';
-ValueNotifier<List<Audio>> finalfavsongs = ValueNotifier([]);
 
-class Favourites extends StatefulWidget {
+class Favourites extends StatelessWidget {
   const Favourites({Key? key}) : super(key: key);
 
   @override
-  State<Favourites> createState() => _FavouritesState();
-}
-
-class _FavouritesState extends State<Favourites> {
-  @override
-  void initState() {
-    super.initState();
-    getFavSongs();
-  }
-
-  late BuildContext ctx;
-
-  @override
   Widget build(BuildContext context) {
-    ctx = context;
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      BlocProvider.of<FavoriteBloc>(context).add(const GetFavSong());
+    });
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -58,13 +44,11 @@ class _FavouritesState extends State<Favourites> {
           ],
         ),
         backgroundColor: bodyclr,
-        body: ValueListenableBuilder(
-          valueListenable: finalfavsongs,
-          builder:
-              (BuildContext context, List<Audio> finalfavsongs, Widget? child) {
+        body: BlocBuilder<FavoriteBloc, FavoriteState>(
+          builder: (context, state) {
             return Padding(
                 padding: const EdgeInsets.all(15),
-                child: finalfavsongs.isEmpty
+                child: state.finalFavSongs.isEmpty
                     ? const Center(
                         child: Text(
                           'No Favourite Songs',
@@ -72,16 +56,17 @@ class _FavouritesState extends State<Favourites> {
                         ),
                       )
                     : ListView.builder(
-                        itemCount: finalfavsongs.length,
+                        itemCount: state.finalFavSongs.length,
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              playSong().playinglist(finalfavsongs, index);
+                              playSong()
+                                  .playinglist(state.finalFavSongs, index);
                               BlocProvider.of<HomeBloc>(context)
                                   .add(const HomeEvent.songPlayed());
                             },
                             child: favList(
-                              favSongData: finalfavsongs[index],
+                              favSongData: state.finalFavSongs[index],
                               index: index,
                             ),
                           );
@@ -89,16 +74,4 @@ class _FavouritesState extends State<Favourites> {
           },
         ));
   }
-}
-
-getFavSongs() {
-  finalfavsongs.value.clear();
-  for (var element in favsonglist.value) {
-    finalfavsongs.value.add(Audio.file(element.songuri,
-        metas: Metas(
-            title: element.songname,
-            artist: element.artist,
-            id: element.id.toString())));
-  }
-  finalfavsongs.notifyListeners();
 }

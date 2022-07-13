@@ -148,7 +148,7 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
                           },
                           child: plylistsngs(
                             index: index,
-                            favSongData: finalplylstsongs[index],
+                            plylistSongData: finalplylstsongs[index],
                             boxkey: widget.boxkey,
                           ),
                         );

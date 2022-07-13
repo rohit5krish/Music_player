@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/core/constants.dart';
-import 'package:music_player/presentation/favorite/favourites.dart';
+import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/home/widgets/songs_list.dart';
 import 'package:music_player/presentation/playlist/widgets/add_playlist.dart';
 import 'package:music_player/splash.dart';
@@ -20,6 +22,8 @@ class crntplayinghom extends StatefulWidget {
 }
 
 class _crntplayinghomState extends State<crntplayinghom> {
+  bool songSkip = true;
+
   Widget audioImage(RealtimePlayingInfos realtimePlayingInfos) {
     return ClipRRect(
         borderRadius: BorderRadius.circular(10),
@@ -103,8 +107,12 @@ class _crntplayinghomState extends State<crntplayinghom> {
                                       constraints: const BoxConstraints(),
                                       padding:
                                           const EdgeInsets.only(bottom: 25),
-                                      onPressed: () {
-                                        audioPlayer.previous();
+                                      onPressed: () async {
+                                        if (songSkip) {
+                                          songSkip = false;
+                                          await audioPlayer.previous();
+                                          songSkip = true;
+                                        }
                                       },
                                       icon: const Icon(
                                         Icons.skip_previous_rounded,
@@ -153,8 +161,12 @@ class _crntplayinghomState extends State<crntplayinghom> {
                                       constraints: const BoxConstraints(),
                                       padding: const EdgeInsets.only(
                                           right: 18, bottom: 25),
-                                      onPressed: () {
-                                        audioPlayer.next();
+                                      onPressed: () async {
+                                        if (songSkip) {
+                                          songSkip = false;
+                                          await audioPlayer.next();
+                                          songSkip = true;
+                                        }
                                       },
                                       icon: const Icon(
                                         Icons.skip_next_rounded,
@@ -214,19 +226,19 @@ class NowPlaying extends StatefulWidget {
 }
 
 class _NowPlayingState extends State<NowPlaying> {
-  removeFav() async {
+  late BuildContext ctx;
+
+  // Remove Song
+  removeFav(List<audioModel> favSongsDatas) async {
     late int index;
 
-    for (var element in favsonglist.value) {
+    for (var element in favSongsDatas) {
       if (audioPlayer.getCurrentAudioTitle == element.songname) {
-        index = favsonglist.value.indexOf(element);
+        index = favSongsDatas.indexOf(element);
         break;
       }
     }
-    favsonglist.value.removeAt(index);
-    favsonglist.notifyListeners();
-
-    await dbBox.put(favsongs, favsonglist.value);
+    BlocProvider.of<FavoriteBloc>(context).add(DeleteFavSong(index: index));
   }
 
   addFav() async {
@@ -237,13 +249,15 @@ class _NowPlayingState extends State<NowPlaying> {
         break;
       }
     }
-    favsonglist.value = List.from(favsonglist.value)..add(dbsongs[index]);
-    await dbBox.put(favsongs, favsonglist.value);
-    favsonglist.notifyListeners();
+    BlocProvider.of<FavoriteBloc>(ctx)
+        .add(AddFavToDb(songData: dbsongs[index]));
   }
+
+  bool songSkip = true;
 
   @override
   Widget build(BuildContext context) {
+    ctx = context;
     return audioPlayer.builderRealtimePlayingInfos(
         builder: (context, realtimePlayingInfos) {
       return Container(
@@ -324,30 +338,35 @@ class _NowPlayingState extends State<NowPlaying> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                IconButton(
-                                    onPressed: () async {
-                                      setState(() {
-                                        checkAdded(
+                                BlocBuilder<FavoriteBloc, FavoriteState>(
+                                  builder: (context, state) {
+                                    return IconButton(
+                                        onPressed: () async {
+                                          setState(() {
+                                            checkAdded(
+                                                    audioPlayer
+                                                        .getCurrentAudioTitle,
+                                                    state.favSongList)
+                                                ? removeFav(state.favSongList)
+                                                : addFav();
+                                          });
+                                        },
+                                        icon: checkAdded(
                                                 audioPlayer
                                                     .getCurrentAudioTitle,
-                                                favsonglist.value)
-                                            ? removeFav()
-                                            : addFav();
-                                      });
-                                    },
-                                    icon: checkAdded(
-                                            audioPlayer.getCurrentAudioTitle,
-                                            favsonglist.value)
-                                        ? const Icon(
-                                            Icons.favorite_rounded,
-                                            color: Colors.red,
-                                            size: 30,
-                                          )
-                                        : const Icon(
-                                            Icons.favorite_outline_rounded,
-                                            color: white,
-                                            size: 30,
-                                          )),
+                                                state.favSongList)
+                                            ? const Icon(
+                                                Icons.favorite_rounded,
+                                                color: Colors.red,
+                                                size: 30,
+                                              )
+                                            : const Icon(
+                                                Icons.favorite_outline_rounded,
+                                                color: white,
+                                                size: 30,
+                                              ));
+                                  },
+                                ),
                                 IconButton(
                                     padding: const EdgeInsets.all(0),
                                     onPressed: () {
@@ -416,8 +435,12 @@ class _NowPlayingState extends State<NowPlaying> {
                                         audioPlayer.playlist!.audios[0]
                                     ? IconButton(
                                         padding: const EdgeInsets.all(0),
-                                        onPressed: () {
-                                          audioPlayer.previous();
+                                        onPressed: () async {
+                                          if (songSkip) {
+                                            songSkip = false;
+                                            await audioPlayer.previous();
+                                            songSkip = true;
+                                          }
                                         },
                                         icon: const Icon(
                                             Icons.skip_previous_rounded,
@@ -452,8 +475,12 @@ class _NowPlayingState extends State<NowPlaying> {
                                                 1]
                                     ? IconButton(
                                         padding: const EdgeInsets.all(0),
-                                        onPressed: () {
-                                          audioPlayer.next();
+                                        onPressed: () async {
+                                          if (songSkip) {
+                                            songSkip = false;
+                                            await audioPlayer.next();
+                                            songSkip = true;
+                                          }
                                         },
                                         icon: const Icon(
                                             Icons.skip_next_rounded,
