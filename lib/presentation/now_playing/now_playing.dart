@@ -295,10 +295,10 @@ class _NowPlayingState extends State<NowPlaying> {
                         borderRadius: BorderRadius.circular(20),
                         child: QueryArtworkWidget(
                             keepOldArtwork: true,
-                            nullArtworkWidget: Container(
+                            nullArtworkWidget: const SizedBox(
                               width: 300,
                               height: 300,
-                              child: const Icon(
+                              child: Icon(
                                 Icons.music_note,
                                 color: white,
                                 size: 150,
