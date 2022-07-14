@@ -2,10 +2,12 @@ part of 'favorite_bloc.dart';
 
 @freezed
 class FavoriteState with _$FavoriteState {
-  const factory FavoriteState({
-    required List<audioModel> favSongList,
-    required List<Audio> finalFavSongs,
-  }) = _FavoriteState;
+  const factory FavoriteState(
+      {required List<audioModel> favSongList,
+      required List<Audio> finalFavSongs,
+
+      // For Now playing Screen
+      bool? isFav}) = _FavoriteState;
 
   factory FavoriteState.initial() {
     // List<Audio> blocFinalFav = [];
@@ -18,6 +20,6 @@ class FavoriteState with _$FavoriteState {
     //           artist: element.artist,
     //           id: element.id.toString())));
     // }
-    return FavoriteState(favSongList: [], finalFavSongs: []);
+    return const FavoriteState(favSongList: [], finalFavSongs: []);
   }
 }

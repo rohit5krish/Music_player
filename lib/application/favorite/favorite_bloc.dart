@@ -41,5 +41,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       dbBox.put(favsongs, _favSongs);
       emit(state.copyWith(favSongList: _favSongs));
     });
+
+// For Now playing screen add favorites button
+    on<FavStateChange>((event, emit) {
+      emit(state.copyWith(isFav: event.isFavorite));
+    });
   }
 }

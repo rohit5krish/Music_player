@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:move_to_background/move_to_background.dart';
 import 'package:music_player/application/home/home_bloc.dart';
 import 'package:music_player/core/constants.dart';
+import 'package:music_player/presentation/home/widgets/current_playing.dart';
 import 'package:music_player/presentation/home/widgets/search.dart';
 import 'package:music_player/presentation/home/widgets/songs_list.dart';
 import 'package:music_player/presentation/now_playing/now_playing.dart';
@@ -132,13 +133,11 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-
                     //Current Playing bottom bar
                     BlocBuilder<HomeBloc, HomeState>(
                       builder: (context, state) {
                         return Visibility(
-                            visible: state.isVisible,
-                            child: const crntplayinghom());
+                            visible: state.isVisible, child: crntplayinghom());
                       },
                     )
                   ],

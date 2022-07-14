@@ -9,4 +9,8 @@ class FavoriteEvent with _$FavoriteEvent {
   const factory FavoriteEvent.deleteFavSong({
     required int index,
   }) = DeleteFavSong;
+
+  // For Now playing screen
+  const factory FavoriteEvent.favStateChange({required bool isFavorite}) =
+      FavStateChange;
 }
