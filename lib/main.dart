@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/application/home/home_bloc.dart';
+import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/application/settings/settings_bloc.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/recent/recent.dart';
@@ -56,6 +57,7 @@ class MusicPlayer extends StatelessWidget {
               BlocProvider(create: (context) => HomeBloc()),
               BlocProvider(create: (context) => FavoriteBloc()),
               BlocProvider(create: (context) => SettingsBloc()),
+              BlocProvider(create: (context) => PlaylistInfoBloc()),
             ],
             child: MaterialApp(
               theme: ThemeData(primarySwatch: Colors.blue),

@@ -80,9 +80,9 @@ createPlaylist(
                                 plylst.value =
                                     dbBox.get(plylstlisting)!.cast<String>();
                                 index = (plylst.value.length) - 1;
-                                plylstsongs.value = dbBox
-                                    .get(plylst.value[index])!
-                                    .cast<audioModel>();
+                                // plylstsongs.value = dbBox
+                                //     .get(plylst.value[index])!
+                                //     .cast<audioModel>();
                                 await addPlylstDb(context, index, element!);
                               }
                               Navigator.of(context).pop();

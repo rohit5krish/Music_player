@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/playlist_info/playlist_info.dart';
@@ -10,11 +12,13 @@ class PlaylistAlbums extends StatefulWidget {
   final String name;
   final int index;
   final ValueChanged<bool> isSelected;
+  final int totalSongs;
   const PlaylistAlbums(
       {Key? key,
       required this.name,
       required this.index,
-      required this.isSelected})
+      required this.isSelected,
+      required this.totalSongs})
       : super(key: key);
 
   @override
@@ -24,11 +28,11 @@ class PlaylistAlbums extends StatefulWidget {
 class _PlaylistAlbumsState extends State<PlaylistAlbums> {
   bool isSelected = false;
 
-  @override
-  void initState() {
-    super.initState();
-    plylstsongs.value = dbBox.get(widget.name)!.cast<audioModel>();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   plylstsongs.value = dbBox.get(widget.name)!.cast<audioModel>();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +95,7 @@ class _PlaylistAlbumsState extends State<PlaylistAlbums> {
             style: whitetxt18,
           ),
           Text(
-            'Total ${plylstsongs.value.length} Songs',
+            'Total ${widget.totalSongs} Songs',
             style: white54txt14,
           )
         ],

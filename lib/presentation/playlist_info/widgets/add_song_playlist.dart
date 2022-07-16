@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/presentation/home/widgets/songs_list.dart';
-import 'package:music_player/presentation/playlist_info/playlist_info.dart';
 import 'package:music_player/splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -36,40 +37,48 @@ void addsongplaylist(BuildContext context, String boxkey) {
                   child: ListView.builder(
                       itemCount: dbsongs.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: QueryArtworkWidget(
-                              nullArtworkWidget: const Icon(
-                                Icons.music_note,
-                                color: white,
-                              ),
-                              id: int.parse(dbsongs[index].id.toString()),
-                              type: ArtworkType.AUDIO),
-                          title: SizedBox(
-                              width: 100,
-                              child: Text(
-                                dbsongs[index].songname,
-                                style: const TextStyle(color: white),
-                                overflow: TextOverflow.ellipsis,
-                              )),
-                          trailing: !checkAdded(
-                                  dbsongs[index].songname, plylstsongs.value)
-                              ? IconButton(
-                                  onPressed: () async {
-                                    plylstsongs.value =
-                                        List.from(plylstsongs.value)
-                                          ..add(dbsongs[index]);
-                                    await dbBox.put(boxkey, plylstsongs.value);
-                                    addedNoti(
-                                        isadd: false,
-                                        ctx: context,
-                                        isfav: boxkey);
-                                    getSongs();
-                                  },
-                                  icon: const Icon(
-                                    Icons.add,
-                                    color: Colors.grey,
-                                  ))
-                              : const Text(''),
+                        return BlocBuilder<PlaylistInfoBloc, PlaylistInfoState>(
+                          builder: (context, state) {
+                            return ListTile(
+                              leading: QueryArtworkWidget(
+                                  nullArtworkWidget: const Icon(
+                                    Icons.music_note,
+                                    color: white,
+                                  ),
+                                  id: int.parse(dbsongs[index].id.toString()),
+                                  type: ArtworkType.AUDIO),
+                              title: SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    dbsongs[index].songname,
+                                    style: const TextStyle(color: white),
+                                    overflow: TextOverflow.ellipsis,
+                                  )),
+                              trailing: !checkAdded(dbsongs[index].songname,
+                                      state.playlistSongs)
+                                  ? IconButton(
+                                      onPressed: () async {
+                                        BlocProvider.of<PlaylistInfoBloc>(
+                                                context)
+                                            .add(AddSongToPlaylist(
+                                                boxKey: boxkey,
+                                                songDatas: dbsongs[index]));
+                                        BlocProvider.of<PlaylistInfoBloc>(
+                                                context)
+                                            .add(GetPlaylistSongs(
+                                                boxKey: boxkey));
+                                        addedNoti(
+                                            isadd: false,
+                                            ctx: context,
+                                            isfav: boxkey);
+                                      },
+                                      icon: const Icon(
+                                        Icons.add,
+                                        color: Colors.grey,
+                                      ))
+                                  : const Text(''),
+                            );
+                          },
                         );
                       }),
                 )

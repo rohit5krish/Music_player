@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/core/constants.dart';
+import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/playlist/widgets/create_playlist.dart';
 import 'package:music_player/presentation/playlist/widgets/playlist_album.dart';
 import 'package:music_player/splash.dart';
@@ -104,9 +105,13 @@ class _musicPlaylistState extends State<musicPlaylist> {
                                 mainAxisSpacing: 40),
                         itemCount: plylst.length,
                         itemBuilder: (context, index) {
+                          List<audioModel> songsInPly =
+                              dbBox.get(plylst[index])!.cast<audioModel>();
+                          int totalNo = songsInPly.length;
                           return PlaylistAlbums(
                             name: plylst[index],
                             index: index,
+                            totalSongs: totalNo,
                             isSelected: (bool value) {
                               setState(() {
                                 if (value) {

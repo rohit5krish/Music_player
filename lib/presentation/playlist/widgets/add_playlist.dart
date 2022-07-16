@@ -49,16 +49,17 @@ addToPlaylist(BuildContext context, audioModel element) {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  plylstsongs.value = dbBox
-                                      .get(plylst.value[index])!
-                                      .cast<audioModel>();
-                                  !checkAdded(
-                                          element.songname, plylstsongs.value)
-                                      ? addPlylstDb(context, index, element)
-                                      : addedNoti(
-                                          isadd: true,
-                                          ctx: context,
-                                          isfav: plylst.value[index]);
+                                  // plylstsongs.value = dbBox
+                                  //     .get(plylst.value[index])!
+                                  //     .cast<audioModel>();
+                                  // !checkAdded(
+                                  //         element.songname, plylstsongs.value)
+                                  //     ? addPlylstDb(context, index, element)
+                                  //     :
+                                  addedNoti(
+                                      isadd: true,
+                                      ctx: context,
+                                      isfav: plylst.value[index]);
                                   Navigator.of(context).pop();
                                 },
                                 child: ListTile(
@@ -92,8 +93,8 @@ addToPlaylist(BuildContext context, audioModel element) {
 }
 
 Future addPlylstDb(BuildContext context, int index, audioModel element) async {
-  plylstsongs.value = List.from(plylstsongs.value)..add(element);
-  plylstsongs.notifyListeners();
-  await dbBox.put(plylst.value[index], plylstsongs.value);
-  addedNoti(isadd: false, ctx: context, isfav: plylst.value[index]);
+  // plylstsongs.value = List.from(plylstsongs.value)..add(element);
+  // plylstsongs.notifyListeners();
+  // await dbBox.put(plylst.value[index], plylstsongs.value);
+  // addedNoti(isadd: false, ctx: context, isfav: plylst.value[index]);
 }

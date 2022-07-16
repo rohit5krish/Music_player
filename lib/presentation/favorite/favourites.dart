@@ -56,6 +56,7 @@ class Favourites extends StatelessWidget {
                         ),
                       )
                     : ListView.builder(
+                        physics: const BouncingScrollPhysics(),
                         itemCount: state.finalFavSongs.length,
                         itemBuilder: (context, index) {
                           return InkWell(

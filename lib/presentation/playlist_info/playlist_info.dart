@@ -1,56 +1,32 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_player/application/home/home_bloc.dart';
+import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/core/constants.dart';
-import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/domain/play_song.dart';
 import 'package:music_player/presentation/playlist/playlist.dart';
-import 'package:music_player/presentation/playlist_info/widgets/add_song_playlist.dart';
+import 'package:music_player/presentation/playlist_info/widgets/add_song_button.dart';
 import 'package:music_player/presentation/playlist_info/widgets/delete_playlist.dart';
 import 'package:music_player/presentation/playlist_info/widgets/play_button_widget.dart';
 import 'package:music_player/presentation/playlist_info/widgets/songs_list.dart';
 import 'package:music_player/splash.dart';
 
-ValueNotifier<List<audioModel>> plylstsongs = ValueNotifier([]);
-ValueNotifier<List<Audio>> finalplylstsongs = ValueNotifier([]);
-
-class PlaylistInfo extends StatefulWidget {
+class PlaylistInfo extends StatelessWidget {
   PlaylistInfo({Key? key, required this.boxkey}) : super(key: key);
   String boxkey;
-
-  @override
-  State<PlaylistInfo> createState() => _PlaylistInfoState();
-}
-
-getSongs() {
-  finalplylstsongs.value.clear();
-  for (var element in plylstsongs.value) {
-    finalplylstsongs.value.add(Audio.file(element.songuri,
-        metas: Metas(
-            title: element.songname,
-            artist: element.artist,
-            id: element.id.toString())));
-  }
-  finalplylstsongs.notifyListeners();
-}
-
-class _PlaylistInfoState extends State<PlaylistInfo> {
   TextEditingController _editctrl = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    plylstsongs.value = dbBox.get(widget.boxkey)!.cast<audioModel>();
-    getSongs();
-  }
-
-// Add Songs into Database
+  late BuildContext ctx;
 
   @override
   Widget build(BuildContext context) {
+    ctx = context;
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      BlocProvider.of<PlaylistInfoBloc>(context)
+          .add(GetPlaylistSongs(boxKey: boxkey));
+    });
+
     List<String> plylstpoptop = ['Delete Playlist', 'Edit Playlist'];
-    _editctrl.text = widget.boxkey;
+    _editctrl.text = boxkey;
 
     return Container(
       decoration: BoxDecoration(
@@ -102,7 +78,7 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
                 const SizedBox(height: 10),
                 // Song Name
                 Text(
-                  widget.boxkey,
+                  boxkey,
                   style: whitetxt18,
                 ),
                 const SizedBox(
@@ -112,50 +88,40 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    // Play Button Refactored
                     const PlayButtonWidget(),
-                    ElevatedButton(
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20))),
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blue[800])),
-                        onPressed: () {
-                          addsongplaylist(context, widget.boxkey);
-                        },
-                        child: const Text('Add Song'))
+
+                    // Add Song Button Refactored
+                    AddSongButtonWidget(boxkey: boxkey)
                   ],
                 )
               ],
             ),
             const SizedBox(height: 20),
             // Songs List
-            Expanded(
-              child: ValueListenableBuilder(
-                valueListenable: finalplylstsongs,
-                builder: (BuildContext context, List<Audio> finalplylstsongs,
-                    Widget? child) {
-                  return ListView.builder(
-                      itemCount: finalplylstsongs.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            playSong().playinglist(finalplylstsongs, index);
+            Expanded(child: BlocBuilder<PlaylistInfoBloc, PlaylistInfoState>(
+              builder: (context, state) {
+                return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: state.finalPlaylistSongs.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          playSong()
+                              .playinglist(state.finalPlaylistSongs, index);
 
-                            BlocProvider.of<HomeBloc>(context)
-                                .add(const HomeEvent.songPlayed());
-                          },
-                          child: plylistsngs(
-                            index: index,
-                            plylistSongData: finalplylstsongs[index],
-                            boxkey: widget.boxkey,
-                          ),
-                        );
-                      });
-                },
-              ),
-            )
+                          BlocProvider.of<HomeBloc>(context)
+                              .add(const HomeEvent.songPlayed());
+                        },
+                        child: plylistsngs(
+                          index: index,
+                          plylistSongData: state.playlistSongs[index],
+                          boxkey: boxkey,
+                        ),
+                      );
+                    });
+              },
+            ))
           ],
         ),
       ),
@@ -164,7 +130,7 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
 
   popselection(String value) async {
     if (value == 'Delete Playlist') {
-      deleteplaylist(context, widget.boxkey);
+      deleteplaylist(ctx, boxkey);
     } else if (value == 'Edit Playlist') {
       editPlaylist();
     }
@@ -172,7 +138,7 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
 
   void editPlaylist() {
     showDialog(
-        context: context,
+        context: ctx,
         builder: (context) {
           return AlertDialog(
             title: const Text('Edit Playlist'),
@@ -189,18 +155,18 @@ class _PlaylistInfoState extends State<PlaylistInfo> {
               TextButton(
                   onPressed: () async {
                     // Edit all Playlist List
-                    int index = plylst.value.indexOf(widget.boxkey);
+                    int index = plylst.value.indexOf(boxkey);
                     plylst.value
                         .replaceRange(index, index + 1, [_editctrl.text]);
                     plylst.notifyListeners();
                     await dbBox.put(plylstlisting, plylst.value);
 
                     // Edit Playlistinfo key
-                    await dbBox.put(_editctrl.text, plylstsongs.value);
-                    dbBox.delete(widget.boxkey);
-                    setState(() {
-                      widget.boxkey = _editctrl.text;
-                    });
+                    // await dbBox.put(_editctrl.text, plylstsongs.value);
+                    dbBox.delete(boxkey);
+                    // setState(() {
+                    boxkey = _editctrl.text;
+                    // });
                     Navigator.of(context).pop();
                   },
                   child: const Text('Update'))
