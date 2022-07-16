@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/application/home/home_bloc.dart';
+import 'package:music_player/application/playlist/playlist_bloc.dart';
 import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/application/settings/settings_bloc.dart';
+import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/recent/recent.dart';
 import 'package:music_player/presentation/favorite/favourites.dart';
@@ -23,9 +25,8 @@ Future<void> main() async {
 
   List<dynamic> boxKeys = dbBox.keys.toList();
   if (!(boxKeys.contains(plylstlisting))) {
-    await dbBox.put(plylstlisting, plylst.value);
-  } else if (boxKeys.contains(plylstlisting)) {
-    plylst.value = dbBox.get(plylstlisting)!.cast<String>();
+    List<String> _playlistNames = [];
+    await dbBox.put(plylstlisting, _playlistNames);
   }
 
   if (!(boxKeys.contains(favsongs))) {
@@ -58,6 +59,7 @@ class MusicPlayer extends StatelessWidget {
               BlocProvider(create: (context) => FavoriteBloc()),
               BlocProvider(create: (context) => SettingsBloc()),
               BlocProvider(create: (context) => PlaylistInfoBloc()),
+              BlocProvider(create: (context) => PlaylistBloc()),
             ],
             child: MaterialApp(
               theme: ThemeData(primarySwatch: Colors.blue),

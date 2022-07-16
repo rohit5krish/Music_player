@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/playlist/playlist_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/playlist/playlist.dart';
@@ -75,7 +77,12 @@ createPlaylist(
                         child: ElevatedButton(
                             onPressed: () async {
                               int index;
-                              await createplylist();
+                              final _plylistname = playlistctrl.text.trim();
+                              BlocProvider.of<PlaylistBloc>(context).add(
+                                  CreateBlocPlaylist(
+                                      newPlylstName: _plylistname));
+                              BlocProvider.of<PlaylistBloc>(context)
+                                  .add(GetPlaylistNames());
                               if (addply) {
                                 plylst.value =
                                     dbBox.get(plylstlisting)!.cast<String>();
@@ -98,15 +105,15 @@ createPlaylist(
       });
 }
 
-Future<void> createplylist() async {
-  final _plylistname = playlistctrl.text.trim();
-  List<audioModel> _plylstsngs = [];
-  if (_plylistname.isEmpty) {
-    return;
-  } else {
-    plylst.value = List.from(plylst.value)..add(_plylistname);
-    plylst.notifyListeners();
-    await dbBox.put(plylstlisting, plylst.value);
-    await dbBox.put(_plylistname, _plylstsngs);
-  }
-}
+// Future<void> createplylist() async {
+//   final _plylistname = playlistctrl.text.trim();
+//   List<audioModel> _plylstsngs = [];
+//   if (_plylistname.isEmpty) {
+//     return;
+//   } else {
+//     plylst.value = List.from(plylst.value)..add(_plylistname);
+//     plylst.notifyListeners();
+//     await dbBox.put(plylstlisting, plylst.value);
+//     await dbBox.put(_plylistname, _plylstsngs);
+//   }
+// }

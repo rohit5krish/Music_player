@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/playlist/playlist_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/playlist/widgets/create_playlist.dart';
@@ -14,21 +16,23 @@ class musicPlaylist extends StatefulWidget {
 
 TextEditingController playlistctrl = TextEditingController();
 ValueNotifier<List<String>> plylst = ValueNotifier([]);
-const String plylstlisting = 'plylist';
 
-getFromDb() {
-  plylst.value = dbBox.get(plylstlisting)!.cast<String>();
-}
+// getFromDb() {
+//   plylst.value = dbBox.get(plylstlisting)!.cast<String>();
+// }
 
 class _musicPlaylistState extends State<musicPlaylist> {
-  @override
-  void initState() {
-    super.initState();
-    getFromDb();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getFromDb();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      BlocProvider.of<PlaylistBloc>(context).add(GetPlaylistNames());
+    });
     return WillPopScope(
       onWillPop: () async {
         if (selectedlist.length >= 1) {
@@ -84,11 +88,11 @@ class _musicPlaylistState extends State<musicPlaylist> {
             ],
           ),
           backgroundColor: bodyclr,
-          body: ValueListenableBuilder(
-              valueListenable: plylst,
-              builder:
-                  (BuildContext context, List<String> plylst, Widget? child) {
-                return plylst.isEmpty
+          body: BlocBuilder<PlaylistBloc, PlaylistState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.all(0),
+                child: state.playlistNames.isEmpty
                     ? const Center(
                         child: Text(
                           'No Playlists',
@@ -103,27 +107,31 @@ class _musicPlaylistState extends State<musicPlaylist> {
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 20,
                                 mainAxisSpacing: 40),
-                        itemCount: plylst.length,
+                        itemCount: state.playlistNames.length,
                         itemBuilder: (context, index) {
-                          List<audioModel> songsInPly =
-                              dbBox.get(plylst[index])!.cast<audioModel>();
-                          int totalNo = songsInPly.length;
+                          // List<audioModel> songsInPly = dbBox
+                          //     .get(state.playlistNames[index])!
+                          //     .cast<audioModel>();
+                          // int totalNo = songsInPly.length;
                           return PlaylistAlbums(
-                            name: plylst[index],
+                            name: state.playlistNames[index],
                             index: index,
-                            totalSongs: totalNo,
+                            // totalSongs: totalNo,
                             isSelected: (bool value) {
                               setState(() {
                                 if (value) {
-                                  selectedlist.add(plylst[index]);
+                                  selectedlist.add(state.playlistNames[index]);
                                 } else {
-                                  selectedlist.remove(plylst[index]);
+                                  selectedlist
+                                      .remove(state.playlistNames[index]);
                                 }
                               });
                             },
                           );
-                        });
-              })),
+                        }),
+              );
+            },
+          )),
     );
   }
 
@@ -138,12 +146,12 @@ class _musicPlaylistState extends State<musicPlaylist> {
             actions: [
               TextButton(
                   onPressed: () async {
-                    for (int i = 0; i < selectedlist.length; i++) {
-                      plylst.value.remove(selectedlist[i]);
-                      dbBox.delete(selectedlist[i]);
-                      await dbBox.put(plylstlisting, plylst.value);
-                    }
-                    plylst.notifyListeners();
+                    // for (int i = 0; i < selectedlist.length; i++) {
+                    //   plylst.value.remove(selectedlist[i]);
+                    //   dbBox.delete(selectedlist[i]);
+                    //   await dbBox.put(plylstlisting, plylst.value);
+                    // }
+                    // plylst.notifyListeners();
                     setState(() {
                       selectedlist.clear();
                     });

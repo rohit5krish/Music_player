@@ -12,14 +12,14 @@ class PlaylistAlbums extends StatefulWidget {
   final String name;
   final int index;
   final ValueChanged<bool> isSelected;
-  final int totalSongs;
-  const PlaylistAlbums(
-      {Key? key,
-      required this.name,
-      required this.index,
-      required this.isSelected,
-      required this.totalSongs})
-      : super(key: key);
+  // final int totalSongs;
+  const PlaylistAlbums({
+    Key? key,
+    required this.name,
+    required this.index,
+    required this.isSelected,
+    // required this.totalSongs
+  }) : super(key: key);
 
   @override
   State<PlaylistAlbums> createState() => _PlaylistAlbumsState();
@@ -95,7 +95,7 @@ class _PlaylistAlbumsState extends State<PlaylistAlbums> {
             style: whitetxt18,
           ),
           Text(
-            'Total ${widget.totalSongs} Songs',
+            'Total 5 Songs',
             style: white54txt14,
           )
         ],
