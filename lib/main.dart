@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/application/home/home_bloc.dart';
+import 'package:music_player/application/settings/settings_bloc.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/recent/recent.dart';
 import 'package:music_player/presentation/favorite/favourites.dart';
@@ -40,14 +41,9 @@ Future<void> main() async {
   runApp(const MusicPlayer());
 }
 
-class MusicPlayer extends StatefulWidget {
+class MusicPlayer extends StatelessWidget {
   const MusicPlayer({Key? key}) : super(key: key);
 
-  @override
-  State<MusicPlayer> createState() => _MusicPlayerState();
-}
-
-class _MusicPlayerState extends State<MusicPlayer> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -59,6 +55,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
             providers: [
               BlocProvider(create: (context) => HomeBloc()),
               BlocProvider(create: (context) => FavoriteBloc()),
+              BlocProvider(create: (context) => SettingsBloc()),
             ],
             child: MaterialApp(
               theme: ThemeData(primarySwatch: Colors.blue),

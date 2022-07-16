@@ -1,9 +1,8 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music_player/presentation/home/widgets/songs_list.dart';
-import 'package:music_player/presentation/settings/settings.dart';
 import 'package:music_player/presentation/recent/recent.dart';
 import 'package:music_player/presentation/now_playing/now_playing.dart';
-import 'package:music_player/presentation/home/widgets/top_cards.dart';
+import 'package:music_player/splash.dart';
 
 class playSong {
   playinglist(List<Audio> songsinlist, int index) {
@@ -16,7 +15,7 @@ class playSong {
             stopEnabled: false, seekBarEnabled: true),
         autoStart: true,
         loopMode: LoopMode.none,
-        showNotification: isSwitched.value);
+        showNotification: prefbool);
 
     // audioPlayer.playlistPlayAtIndex(index);
 

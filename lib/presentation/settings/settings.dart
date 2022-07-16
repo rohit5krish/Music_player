@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/settings/settings_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/presentation/settings/widgets/settings_widget.dart';
 import 'package:music_player/splash.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+class Settings extends StatelessWidget {
+  Settings({Key? key}) : super(key: key);
 
-  @override
-  State<Settings> createState() => _SettingsState();
-}
+  late BuildContext ctx;
 
-ValueNotifier<bool> isSwitched = ValueNotifier(prefbool);
-const String prefKey = 'sharedpref';
-
-class _SettingsState extends State<Settings> {
   //Settings Contents
   final List settinglist = [
     [
-      Icon(
+      const Icon(
         Icons.notifications,
         color: white,
       ),
       'Notifications'
     ],
-    [Icon(Icons.file_copy, color: white), 'Terms and Conditions'],
-    [Icon(Icons.share, color: white), 'Share'],
-    [Icon(Icons.info_outline, color: white), 'About']
+    [const Icon(Icons.file_copy, color: white), 'Terms and Conditions'],
+    [const Icon(Icons.share, color: white), 'Share'],
+    [const Icon(Icons.info_outline, color: white), 'About']
   ];
 
   @override
   Widget build(BuildContext context) {
+    ctx = context;
     return Scaffold(
       //AppBar
       appBar: AppBar(
@@ -50,28 +47,32 @@ class _SettingsState extends State<Settings> {
       body: ListView.builder(
           itemCount: settinglist.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              onTap: () {
-                settingontap(index);
+            return BlocBuilder<SettingsBloc, SettingsState>(
+              builder: (context, state) {
+                return ListTile(
+                  onTap: () {
+                    settingontap(index);
+                  },
+                  leading: settinglist[index][0],
+                  trailing: index == 0
+                      ? Switch(
+                          value: state.isSwitched,
+                          onChanged: (value) async {
+                            BlocProvider.of<SettingsBloc>(context)
+                                .add(ChangeSwitch(switchBool: value));
+
+                            final pref = await SharedPreferences.getInstance();
+                            pref.setBool(prefKey, value);
+                          },
+                          inactiveTrackColor: Colors.grey,
+                        )
+                      : null,
+                  title: Text(
+                    settinglist[index][1],
+                    style: whitetxt18,
+                  ),
+                );
               },
-              leading: settinglist[index][0],
-              trailing: index == 0
-                  ? Switch(
-                      value: isSwitched.value,
-                      onChanged: (value) async {
-                        setState(() {
-                          isSwitched.value = value;
-                        });
-                        final pref = await SharedPreferences.getInstance();
-                        pref.setBool(prefKey, value);
-                      },
-                      inactiveTrackColor: Colors.grey,
-                    )
-                  : null,
-              title: Text(
-                settinglist[index][1],
-                style: whitetxt18,
-              ),
             );
           }),
     );
@@ -79,7 +80,7 @@ class _SettingsState extends State<Settings> {
 
   settingontap(int idx) async {
     if (idx == 1) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return termsNcond();
       }));
     } else if (idx == 2) {
@@ -96,28 +97,28 @@ class _SettingsState extends State<Settings> {
         shape: const RoundedRectangleBorder(
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(25))),
-        context: context,
+        context: ctx,
         builder: (context) {
           return Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'About',
                   style: whitetxt22,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   'Version 1.0.0',
                   style: whitetxt15,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Text(
+                const Text(
                   'Email : rohitkrishnark5@gmail.com',
                   style: whitetxt15,
                 ),

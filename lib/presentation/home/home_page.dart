@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return const Settings();
+                      return Settings();
                     }));
                   },
                   icon: const Icon(Icons.settings)),
