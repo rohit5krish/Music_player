@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/core/constants.dart';
-import 'package:music_player/presentation/favorite/favourites.dart';
 import 'package:music_player/presentation/playlist/widgets/add_playlist.dart';
 import 'package:music_player/splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';

@@ -7,6 +7,6 @@ class HomeState with _$HomeState {
   }) = _HomeState;
 
   factory HomeState.initial() {
-    return HomeState(isVisible: false);
+    return const HomeState(isVisible: false);
   }
 }

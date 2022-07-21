@@ -1,6 +1,6 @@
-//Current Playing Song at Home screen Bottom
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/presentation/now_playing/now_playing.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -50,27 +50,46 @@ class crntplayinghom extends StatelessWidget {
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return NowPlaying();
+                                return const NowPlaying();
                               }));
                             },
                             child: Row(
                               children: [
+                                // Song Image
                                 audioImage(realtimePlayingInfos),
+
                                 const SizedBox(
                                   width: 15,
                                 ),
+
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    // Song Name
                                     SizedBox(
-                                      width: 120,
-                                      child: Text(
-                                        audioPlayer.getCurrentAudioTitle,
-                                        style: whitetxt15,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
+                                        width: 120,
+                                        height: 25,
+                                        child: Marquee(
+                                          text:
+                                              audioPlayer.getCurrentAudioTitle,
+                                          style: whitetxt15,
+                                          scrollAxis: Axis.horizontal,
+                                          blankSpace: 50,
+                                          velocity: 30,
+                                          pauseAfterRound:
+                                              const Duration(seconds: 1),
+                                          showFadingOnlyWhenScrolling: true,
+                                          fadingEdgeStartFraction: 0.1,
+                                          fadingEdgeEndFraction: 0.1,
+                                          startPadding: 10,
+                                          accelerationDuration:
+                                              const Duration(seconds: 1),
+                                          accelerationCurve: Curves.linear,
+                                          decelerationDuration:
+                                              const Duration(milliseconds: 500),
+                                          decelerationCurve: Curves.easeOut,
+                                        )),
                                     SizedBox(
                                       width: 120,
                                       child: Text(

@@ -6,7 +6,6 @@ import 'package:hive/hive.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/home/home_page.dart';
-import 'package:music_player/presentation/settings/settings.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,26 +18,14 @@ List<audioModel> dbsongs = [];
 List<Audio> finalsonglist = [];
 late bool prefbool;
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    gotoHome();
-  }
-
-  Future gotoHome() async {
-    await Future.delayed(Duration(seconds: 2));
+  Future gotoHome(BuildContext context) async {
     await requestPermission();
     await checkNoti();
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-      return HomePage();
+      return const HomePage();
     }));
   }
 
@@ -106,6 +93,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      gotoHome(context);
+    });
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(

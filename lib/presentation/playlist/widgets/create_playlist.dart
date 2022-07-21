@@ -7,7 +7,6 @@ import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/playlist/playlist.dart';
 import 'package:music_player/presentation/playlist/widgets/add_playlist.dart';
-import 'package:music_player/presentation/playlist_info/playlist_info.dart';
 import 'package:music_player/splash.dart';
 
 createPlaylist(
@@ -36,7 +35,7 @@ createPlaylist(
               children: [
                 const Text(
                   'Create Playlist',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: white,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,

@@ -8,6 +8,6 @@ class RecentState with _$RecentState {
   }) = _RecentState;
 
   factory RecentState.initial() {
-    return RecentState(finalRecentSongs: [], recentSongs: []);
+    return const RecentState(finalRecentSongs: [], recentSongs: []);
   }
 }

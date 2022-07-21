@@ -8,6 +8,6 @@ class PlaylistInfoState with _$PlaylistInfoState {
   }) = _PlaylistInfoState;
 
   factory PlaylistInfoState.initial() {
-    return PlaylistInfoState(playlistSongs: [], finalPlaylistSongs: []);
+    return const PlaylistInfoState(playlistSongs: [], finalPlaylistSongs: []);
   }
 }

@@ -6,20 +6,14 @@ import 'package:music_player/core/constants.dart';
 import 'package:music_player/presentation/home/widgets/current_playing.dart';
 import 'package:music_player/presentation/home/widgets/search.dart';
 import 'package:music_player/presentation/home/widgets/songs_list.dart';
-import 'package:music_player/presentation/now_playing/now_playing.dart';
 import 'package:music_player/presentation/settings/settings.dart';
 import 'package:music_player/domain/play_song.dart';
 import 'package:music_player/presentation/home/widgets/top_cards.dart';
 import 'package:music_player/splash.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final double screenheight = MediaQuery.of(context).size.height;

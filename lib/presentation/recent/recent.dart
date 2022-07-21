@@ -50,6 +50,7 @@ class Recent extends StatelessWidget {
                     ),
                   )
                 : ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     itemCount: state.finalRecentSongs.length,
                     itemBuilder: (context, index) {
                       return InkWell(
@@ -60,7 +61,8 @@ class Recent extends StatelessWidget {
                               .add(const HomeEvent.songPlayed());
                         },
                         child: Songs(
-                            songData: state.finalRecentSongs[index],
+                            songData: state.finalRecentSongs[
+                                (state.finalRecentSongs.length - index) - 1],
                             index: index),
                       );
                     }),

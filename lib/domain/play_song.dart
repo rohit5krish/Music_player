@@ -31,11 +31,11 @@ class playSong {
               artist: element.artist,
               id: element.id.toString())));
     }
-    if (_finalRecentSongs.length < 15 &&
+    if (_finalRecentSongs.length < 10 &&
         !checkAdded(songsinlist[index].metas.title.toString(), _recentSongs)) {
       _finalRecentSongs.add(songsinlist[index]);
       addRecDb(_recentSongs, _finalRecentSongs);
-    } else if (_finalRecentSongs.length < 15 &&
+    } else if (_finalRecentSongs.length < 10 &&
         checkAdded(songsinlist[index].metas.title.toString(), _recentSongs)) {
       _finalRecentSongs.insert(_finalRecentSongs.length, songsinlist[index]);
       _finalRecentSongs.removeAt(_finalRecentSongs.indexOf(songsinlist[index]));

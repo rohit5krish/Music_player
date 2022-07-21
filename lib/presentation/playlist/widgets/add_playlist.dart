@@ -5,9 +5,7 @@ import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/home/widgets/songs_list.dart';
-import 'package:music_player/presentation/playlist/playlist.dart';
 import 'package:music_player/presentation/playlist/widgets/create_playlist.dart';
-import 'package:music_player/presentation/playlist_info/playlist_info.dart';
 import 'package:music_player/splash.dart';
 
 addToPlaylist(BuildContext context, audioModel element) {

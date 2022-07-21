@@ -94,8 +94,7 @@ class Settings extends StatelessWidget {
     showModalBottomSheet(
         backgroundColor: bggradient1,
         shape: const RoundedRectangleBorder(
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(25))),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
         context: ctx,
         builder: (context) {
           return Padding(
@@ -111,7 +110,7 @@ class Settings extends StatelessWidget {
                   height: 20,
                 ),
                 const Text(
-                  'Version 1.0.0',
+                  'Version 1.0.1',
                   style: whitetxt15,
                 ),
                 const SizedBox(
