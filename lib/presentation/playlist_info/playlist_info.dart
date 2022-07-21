@@ -130,7 +130,7 @@ class PlaylistInfo extends StatelessWidget {
 
   popselection(String value) async {
     if (value == 'Delete Playlist') {
-      deleteplaylist(ctx, boxkey);
+      deleteplaylist(context: ctx, isMultiDelete: false, boxkey: boxkey);
     } else if (value == 'Edit Playlist') {
       editPlaylist();
     }

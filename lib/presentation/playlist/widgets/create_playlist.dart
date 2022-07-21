@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/playlist/playlist_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/playlist/playlist.dart';
@@ -72,23 +76,47 @@ createPlaylist(
                     SizedBox(
                         width: 100,
                         height: 45,
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              int index;
-                              await createplylist();
-                              if (addply) {
-                                plylst.value =
-                                    dbBox.get(plylstlisting)!.cast<String>();
-                                index = (plylst.value.length) - 1;
-                                // plylstsongs.value = dbBox
-                                //     .get(plylst.value[index])!
-                                //     .cast<audioModel>();
-                                await addPlylstDb(context, index, element!);
-                              }
-                              Navigator.of(context).pop();
-                              playlistctrl.clear();
-                            },
-                            child: const Text('Create'))),
+                        child: addply
+                            ? ElevatedButton(
+                                onPressed: () async {
+                                  final _plylistname = playlistctrl.text.trim();
+                                  if (_plylistname.isEmpty) {
+                                    return;
+                                  } else {
+                                    List<audioModel> _demoList = [];
+                                    List<String> plylst = dbBox
+                                        .get(plylstlisting)!
+                                        .cast<String>();
+                                    plylst.add(_plylistname);
+                                    await dbBox.put(plylstlisting, plylst);
+                                    await dbBox.put(_plylistname, _demoList);
+                                    await addPlylstDb(
+                                        context, element!, _plylistname);
+                                  }
+
+                                  Navigator.of(context).pop();
+                                  playlistctrl.clear();
+                                },
+                                child: const Text('Create'))
+                            : ElevatedButton(
+                                onPressed: () async {
+                                  final _plylistname = playlistctrl.text.trim();
+                                  if (_plylistname.isEmpty) {
+                                    return;
+                                  } else {
+                                    await blocPlaylistCreate(
+                                        context, _plylistname);
+                                    log('Before put');
+                                    List<audioModel> _plylstsngs = [];
+                                    await dbBox.put(_plylistname, _plylstsngs);
+                                    log('After put');
+                                  }
+                                  Navigator.of(context).pop();
+                                  log('poped screen');
+                                  playlistctrl.clear();
+                                  log('All finished');
+                                },
+                                child: const Text('Create'))),
                   ],
                 ),
               ],
@@ -98,15 +126,8 @@ createPlaylist(
       });
 }
 
-Future<void> createplylist() async {
-  final _plylistname = playlistctrl.text.trim();
-  List<audioModel> _plylstsngs = [];
-  if (_plylistname.isEmpty) {
-    return;
-  } else {
-    plylst.value = List.from(plylst.value)..add(_plylistname);
-    plylst.notifyListeners();
-    await dbBox.put(plylstlisting, plylst.value);
-    await dbBox.put(_plylistname, _plylstsngs);
-  }
+Future<void> blocPlaylistCreate(
+    BuildContext context, String newPlylstName) async {
+  BlocProvider.of<PlaylistBloc>(context)
+      .add(CreatePlylistNames(plylistName: newPlylstName));
 }
