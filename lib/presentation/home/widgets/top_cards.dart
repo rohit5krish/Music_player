@@ -76,7 +76,7 @@ class TopHomeCards extends StatelessWidget {
         InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return const musicPlaylist();
+              return musicPlaylist();
             }));
           },
           child: Container(

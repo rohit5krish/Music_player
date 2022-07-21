@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_player/application/home/home_bloc.dart';
+import 'package:music_player/application/playlist/playlist_bloc.dart';
 import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/play_song.dart';
@@ -12,8 +13,10 @@ import 'package:music_player/presentation/playlist_info/widgets/songs_list.dart'
 import 'package:music_player/splash.dart';
 
 class PlaylistInfo extends StatelessWidget {
-  PlaylistInfo({Key? key, required this.boxkey}) : super(key: key);
-  String boxkey;
+  final String boxkey;
+  final int idx;
+  PlaylistInfo({Key? key, required this.boxkey, required this.idx})
+      : super(key: key);
   TextEditingController _editctrl = TextEditingController();
   late BuildContext ctx;
 
@@ -77,9 +80,13 @@ class PlaylistInfo extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 // Song Name
-                Text(
-                  boxkey,
-                  style: whitetxt18,
+                BlocBuilder<PlaylistBloc, PlaylistState>(
+                  builder: (context, state) {
+                    return Text(
+                      state.playlistNames[idx],
+                      style: whitetxt18,
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 25,
@@ -152,24 +159,21 @@ class PlaylistInfo extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: const Text('Cancel')),
-              TextButton(
-                  onPressed: () async {
-                    // Edit all Playlist List
-                    int index = plylst.value.indexOf(boxkey);
-                    plylst.value
-                        .replaceRange(index, index + 1, [_editctrl.text]);
-                    plylst.notifyListeners();
-                    await dbBox.put(plylstlisting, plylst.value);
+              BlocBuilder<PlaylistInfoBloc, PlaylistInfoState>(
+                builder: (context, state) {
+                  return TextButton(
+                      onPressed: () async {
+                        BlocProvider.of<PlaylistBloc>(context).add(
+                            EditPlaylistName(
+                                oldPlaylistName: boxkey,
+                                newPlaylistName: _editctrl.text,
+                                plylstAllSongs: state.playlistSongs));
 
-                    // Edit Playlistinfo key
-                    // await dbBox.put(_editctrl.text, plylstsongs.value);
-                    dbBox.delete(boxkey);
-                    // setState(() {
-                    boxkey = _editctrl.text;
-                    // });
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Update'))
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Update'));
+                },
+              )
             ],
           );
         });

@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:injectable/injectable.dart';
 import 'package:music_player/core/constants.dart';
+import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/domain/playlist/playlist_service.dart';
 import 'package:music_player/presentation/playlist/playlist.dart';
 
@@ -39,6 +40,17 @@ class PlaylistBloc extends Bloc<PlaylistEvent, PlaylistState> {
     on<UnselectAll>((event, emit) {
       List<String> _emptyList = [];
       emit(state.copyWith(selectedList: _emptyList));
+    });
+
+    on<EditPlaylistName>((event, emit) async {
+      List<String> allPlylst = [];
+      allPlylst.addAll(state.playlistNames);
+      int index = allPlylst.indexOf(event.oldPlaylistName);
+      allPlylst.replaceRange(index, index + 1, [event.newPlaylistName]);
+      await dbBox.put(plylstlisting, allPlylst);
+      await dbBox.put(event.newPlaylistName, event.plylstAllSongs);
+      await dbBox.delete(event.oldPlaylistName);
+      emit(state.copyWith(playlistNames: allPlylst));
     });
   }
 }

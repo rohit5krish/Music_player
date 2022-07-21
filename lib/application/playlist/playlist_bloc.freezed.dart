@@ -21,6 +21,9 @@ mixin _$PlaylistEvent {
     required TResult Function(String plylistName) createPlylistNames,
     required TResult Function(String selectedPlaylist) multiSelection,
     required TResult Function() unselectAll,
+    required TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)
+        editPlaylistName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +31,9 @@ mixin _$PlaylistEvent {
     TResult Function(String plylistName)? createPlylistNames,
     TResult Function(String selectedPlaylist)? multiSelection,
     TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +41,9 @@ mixin _$PlaylistEvent {
     TResult Function(String plylistName)? createPlylistNames,
     TResult Function(String selectedPlaylist)? multiSelection,
     TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +52,7 @@ mixin _$PlaylistEvent {
     required TResult Function(CreatePlylistNames value) createPlylistNames,
     required TResult Function(MultiSelection value) multiSelection,
     required TResult Function(UnselectAll value) unselectAll,
+    required TResult Function(EditPlaylistName value) editPlaylistName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +60,7 @@ mixin _$PlaylistEvent {
     TResult Function(CreatePlylistNames value)? createPlylistNames,
     TResult Function(MultiSelection value)? multiSelection,
     TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +68,7 @@ mixin _$PlaylistEvent {
     TResult Function(CreatePlylistNames value)? createPlylistNames,
     TResult Function(MultiSelection value)? multiSelection,
     TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -149,6 +161,9 @@ class _$CreatePlylistNames implements CreatePlylistNames {
     required TResult Function(String plylistName) createPlylistNames,
     required TResult Function(String selectedPlaylist) multiSelection,
     required TResult Function() unselectAll,
+    required TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)
+        editPlaylistName,
   }) {
     return createPlylistNames(plylistName);
   }
@@ -159,6 +174,9 @@ class _$CreatePlylistNames implements CreatePlylistNames {
     TResult Function(String plylistName)? createPlylistNames,
     TResult Function(String selectedPlaylist)? multiSelection,
     TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
   }) {
     return createPlylistNames?.call(plylistName);
   }
@@ -169,6 +187,9 @@ class _$CreatePlylistNames implements CreatePlylistNames {
     TResult Function(String plylistName)? createPlylistNames,
     TResult Function(String selectedPlaylist)? multiSelection,
     TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
     required TResult orElse(),
   }) {
     if (createPlylistNames != null) {
@@ -183,6 +204,7 @@ class _$CreatePlylistNames implements CreatePlylistNames {
     required TResult Function(CreatePlylistNames value) createPlylistNames,
     required TResult Function(MultiSelection value) multiSelection,
     required TResult Function(UnselectAll value) unselectAll,
+    required TResult Function(EditPlaylistName value) editPlaylistName,
   }) {
     return createPlylistNames(this);
   }
@@ -193,6 +215,7 @@ class _$CreatePlylistNames implements CreatePlylistNames {
     TResult Function(CreatePlylistNames value)? createPlylistNames,
     TResult Function(MultiSelection value)? multiSelection,
     TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
   }) {
     return createPlylistNames?.call(this);
   }
@@ -203,6 +226,7 @@ class _$CreatePlylistNames implements CreatePlylistNames {
     TResult Function(CreatePlylistNames value)? createPlylistNames,
     TResult Function(MultiSelection value)? multiSelection,
     TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
     required TResult orElse(),
   }) {
     if (createPlylistNames != null) {
@@ -291,6 +315,9 @@ class _$MultiSelection implements MultiSelection {
     required TResult Function(String plylistName) createPlylistNames,
     required TResult Function(String selectedPlaylist) multiSelection,
     required TResult Function() unselectAll,
+    required TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)
+        editPlaylistName,
   }) {
     return multiSelection(selectedPlaylist);
   }
@@ -301,6 +328,9 @@ class _$MultiSelection implements MultiSelection {
     TResult Function(String plylistName)? createPlylistNames,
     TResult Function(String selectedPlaylist)? multiSelection,
     TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
   }) {
     return multiSelection?.call(selectedPlaylist);
   }
@@ -311,6 +341,9 @@ class _$MultiSelection implements MultiSelection {
     TResult Function(String plylistName)? createPlylistNames,
     TResult Function(String selectedPlaylist)? multiSelection,
     TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
     required TResult orElse(),
   }) {
     if (multiSelection != null) {
@@ -325,6 +358,7 @@ class _$MultiSelection implements MultiSelection {
     required TResult Function(CreatePlylistNames value) createPlylistNames,
     required TResult Function(MultiSelection value) multiSelection,
     required TResult Function(UnselectAll value) unselectAll,
+    required TResult Function(EditPlaylistName value) editPlaylistName,
   }) {
     return multiSelection(this);
   }
@@ -335,6 +369,7 @@ class _$MultiSelection implements MultiSelection {
     TResult Function(CreatePlylistNames value)? createPlylistNames,
     TResult Function(MultiSelection value)? multiSelection,
     TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
   }) {
     return multiSelection?.call(this);
   }
@@ -345,6 +380,7 @@ class _$MultiSelection implements MultiSelection {
     TResult Function(CreatePlylistNames value)? createPlylistNames,
     TResult Function(MultiSelection value)? multiSelection,
     TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
     required TResult orElse(),
   }) {
     if (multiSelection != null) {
@@ -408,6 +444,9 @@ class _$UnselectAll implements UnselectAll {
     required TResult Function(String plylistName) createPlylistNames,
     required TResult Function(String selectedPlaylist) multiSelection,
     required TResult Function() unselectAll,
+    required TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)
+        editPlaylistName,
   }) {
     return unselectAll();
   }
@@ -418,6 +457,9 @@ class _$UnselectAll implements UnselectAll {
     TResult Function(String plylistName)? createPlylistNames,
     TResult Function(String selectedPlaylist)? multiSelection,
     TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
   }) {
     return unselectAll?.call();
   }
@@ -428,6 +470,9 @@ class _$UnselectAll implements UnselectAll {
     TResult Function(String plylistName)? createPlylistNames,
     TResult Function(String selectedPlaylist)? multiSelection,
     TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
     required TResult orElse(),
   }) {
     if (unselectAll != null) {
@@ -442,6 +487,7 @@ class _$UnselectAll implements UnselectAll {
     required TResult Function(CreatePlylistNames value) createPlylistNames,
     required TResult Function(MultiSelection value) multiSelection,
     required TResult Function(UnselectAll value) unselectAll,
+    required TResult Function(EditPlaylistName value) editPlaylistName,
   }) {
     return unselectAll(this);
   }
@@ -452,6 +498,7 @@ class _$UnselectAll implements UnselectAll {
     TResult Function(CreatePlylistNames value)? createPlylistNames,
     TResult Function(MultiSelection value)? multiSelection,
     TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
   }) {
     return unselectAll?.call(this);
   }
@@ -462,6 +509,7 @@ class _$UnselectAll implements UnselectAll {
     TResult Function(CreatePlylistNames value)? createPlylistNames,
     TResult Function(MultiSelection value)? multiSelection,
     TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
     required TResult orElse(),
   }) {
     if (unselectAll != null) {
@@ -473,6 +521,197 @@ class _$UnselectAll implements UnselectAll {
 
 abstract class UnselectAll implements PlaylistEvent {
   const factory UnselectAll() = _$UnselectAll;
+}
+
+/// @nodoc
+abstract class _$$EditPlaylistNameCopyWith<$Res> {
+  factory _$$EditPlaylistNameCopyWith(
+          _$EditPlaylistName value, $Res Function(_$EditPlaylistName) then) =
+      __$$EditPlaylistNameCopyWithImpl<$Res>;
+  $Res call(
+      {String oldPlaylistName,
+      String newPlaylistName,
+      List<audioModel> plylstAllSongs});
+}
+
+/// @nodoc
+class __$$EditPlaylistNameCopyWithImpl<$Res>
+    extends _$PlaylistEventCopyWithImpl<$Res>
+    implements _$$EditPlaylistNameCopyWith<$Res> {
+  __$$EditPlaylistNameCopyWithImpl(
+      _$EditPlaylistName _value, $Res Function(_$EditPlaylistName) _then)
+      : super(_value, (v) => _then(v as _$EditPlaylistName));
+
+  @override
+  _$EditPlaylistName get _value => super._value as _$EditPlaylistName;
+
+  @override
+  $Res call({
+    Object? oldPlaylistName = freezed,
+    Object? newPlaylistName = freezed,
+    Object? plylstAllSongs = freezed,
+  }) {
+    return _then(_$EditPlaylistName(
+      oldPlaylistName: oldPlaylistName == freezed
+          ? _value.oldPlaylistName
+          : oldPlaylistName // ignore: cast_nullable_to_non_nullable
+              as String,
+      newPlaylistName: newPlaylistName == freezed
+          ? _value.newPlaylistName
+          : newPlaylistName // ignore: cast_nullable_to_non_nullable
+              as String,
+      plylstAllSongs: plylstAllSongs == freezed
+          ? _value._plylstAllSongs
+          : plylstAllSongs // ignore: cast_nullable_to_non_nullable
+              as List<audioModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EditPlaylistName implements EditPlaylistName {
+  const _$EditPlaylistName(
+      {required this.oldPlaylistName,
+      required this.newPlaylistName,
+      required final List<audioModel> plylstAllSongs})
+      : _plylstAllSongs = plylstAllSongs;
+
+  @override
+  final String oldPlaylistName;
+  @override
+  final String newPlaylistName;
+  final List<audioModel> _plylstAllSongs;
+  @override
+  List<audioModel> get plylstAllSongs {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_plylstAllSongs);
+  }
+
+  @override
+  String toString() {
+    return 'PlaylistEvent.editPlaylistName(oldPlaylistName: $oldPlaylistName, newPlaylistName: $newPlaylistName, plylstAllSongs: $plylstAllSongs)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EditPlaylistName &&
+            const DeepCollectionEquality()
+                .equals(other.oldPlaylistName, oldPlaylistName) &&
+            const DeepCollectionEquality()
+                .equals(other.newPlaylistName, newPlaylistName) &&
+            const DeepCollectionEquality()
+                .equals(other._plylstAllSongs, _plylstAllSongs));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(oldPlaylistName),
+      const DeepCollectionEquality().hash(newPlaylistName),
+      const DeepCollectionEquality().hash(_plylstAllSongs));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$EditPlaylistNameCopyWith<_$EditPlaylistName> get copyWith =>
+      __$$EditPlaylistNameCopyWithImpl<_$EditPlaylistName>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String plylistName) createPlylistNames,
+    required TResult Function(String selectedPlaylist) multiSelection,
+    required TResult Function() unselectAll,
+    required TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)
+        editPlaylistName,
+  }) {
+    return editPlaylistName(oldPlaylistName, newPlaylistName, plylstAllSongs);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
+  }) {
+    return editPlaylistName?.call(
+        oldPlaylistName, newPlaylistName, plylstAllSongs);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
+    TResult Function(String oldPlaylistName, String newPlaylistName,
+            List<audioModel> plylstAllSongs)?
+        editPlaylistName,
+    required TResult orElse(),
+  }) {
+    if (editPlaylistName != null) {
+      return editPlaylistName(oldPlaylistName, newPlaylistName, plylstAllSongs);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreatePlylistNames value) createPlylistNames,
+    required TResult Function(MultiSelection value) multiSelection,
+    required TResult Function(UnselectAll value) unselectAll,
+    required TResult Function(EditPlaylistName value) editPlaylistName,
+  }) {
+    return editPlaylistName(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
+  }) {
+    return editPlaylistName?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
+    TResult Function(EditPlaylistName value)? editPlaylistName,
+    required TResult orElse(),
+  }) {
+    if (editPlaylistName != null) {
+      return editPlaylistName(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EditPlaylistName implements PlaylistEvent {
+  const factory EditPlaylistName(
+      {required final String oldPlaylistName,
+      required final String newPlaylistName,
+      required final List<audioModel> plylstAllSongs}) = _$EditPlaylistName;
+
+  String get oldPlaylistName;
+  String get newPlaylistName;
+  List<audioModel> get plylstAllSongs;
+  @JsonKey(ignore: true)
+  _$$EditPlaylistNameCopyWith<_$EditPlaylistName> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

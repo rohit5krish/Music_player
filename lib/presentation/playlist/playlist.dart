@@ -9,26 +9,10 @@ import 'package:music_player/presentation/playlist_info/playlist_info.dart';
 import 'package:music_player/presentation/playlist_info/widgets/delete_playlist.dart';
 import 'package:music_player/splash.dart';
 
-class musicPlaylist extends StatefulWidget {
-  const musicPlaylist({Key? key}) : super(key: key);
-
-  @override
-  State<musicPlaylist> createState() => _musicPlaylistState();
-}
-
 TextEditingController playlistctrl = TextEditingController();
-ValueNotifier<List<String>> plylst = ValueNotifier([]);
 
-// getFromDb() {
-//   plylst.value = dbBox.get(plylstlisting)!.cast<String>();
-// }
-
-class _musicPlaylistState extends State<musicPlaylist> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getFromDb();
-  // }
+class musicPlaylist extends StatelessWidget {
+  musicPlaylist({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -106,9 +90,10 @@ class _musicPlaylistState extends State<musicPlaylist> {
                                 mainAxisSpacing: 40),
                         itemCount: state.playlistNames.length,
                         itemBuilder: (context, index) {
-                          // List<audioModel> songsInPly =
-                          //     dbBox.get(plylst[index])!.cast<audioModel>();
-                          // int totalNo = songsInPly.length;
+                          List<audioModel> songsInPly = dbBox
+                              .get(state.playlistNames[index])!
+                              .cast<audioModel>();
+                          int totalSongs = songsInPly.length;
                           final playlist = state.playlistNames[index];
                           bool isPlylstSelected =
                               state.selectedList.contains(playlist);
@@ -120,7 +105,10 @@ class _musicPlaylistState extends State<musicPlaylist> {
                               } else {
                                 Navigator.of(context)
                                     .push(MaterialPageRoute(builder: (context) {
-                                  return PlaylistInfo(boxkey: playlist);
+                                  return PlaylistInfo(
+                                    boxkey: playlist,
+                                    idx: index,
+                                  );
                                 }));
                               }
                             },
@@ -132,43 +120,11 @@ class _musicPlaylistState extends State<musicPlaylist> {
                               name: playlist,
                               index: index,
                               isSelected: isPlylstSelected,
+                              totalNo: totalSongs,
                             ),
                           );
                         })));
       },
     );
   }
-
-  // gridDeletion() {
-  //   showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return AlertDialog(
-  //           title: const Text('Delete Playlist?'),
-  //           content: const Text(
-  //               'Are You Sure To Want to Delete the Selected Playlists?'),
-  //           actions: [
-  //             TextButton(
-  //                 onPressed: () async {
-  //                   for (int i = 0; i < selectedlist.length; i++) {
-  //                     plylst.value.remove(selectedlist[i]);
-  //                     dbBox.delete(selectedlist[i]);
-  //                     await dbBox.put(plylstlisting, plylst.value);
-  //                   }
-  //                   plylst.notifyListeners();
-  //                   setState(() {
-  //                     selectedlist.clear();
-  //                   });
-  //                   Navigator.of(context).pop();
-  //                 },
-  //                 child: const Text('Yes')),
-  //             TextButton(
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop();
-  //                 },
-  //                 child: const Text('No'))
-  //           ],
-  //         );
-  //       });
-  // }
 }

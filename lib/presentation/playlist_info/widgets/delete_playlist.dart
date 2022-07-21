@@ -47,7 +47,7 @@ void deleteplaylist(
                       await dbBox.delete(boxkey);
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                              builder: (context) => const musicPlaylist()),
+                              builder: (context) => musicPlaylist()),
                           (route) => false);
                     },
                     child: const Text('Yes')),

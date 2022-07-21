@@ -9,4 +9,9 @@ class PlaylistEvent with _$PlaylistEvent {
     required String selectedPlaylist,
   }) = MultiSelection;
   const factory PlaylistEvent.unselectAll() = UnselectAll;
+  const factory PlaylistEvent.editPlaylistName({
+    required String oldPlaylistName,
+    required String newPlaylistName,
+    required List<audioModel> plylstAllSongs,
+  }) = EditPlaylistName;
 }

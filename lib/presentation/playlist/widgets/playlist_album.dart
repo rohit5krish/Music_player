@@ -8,29 +8,19 @@ import 'package:music_player/splash.dart';
 
 // List<String> selectedlist = [];
 
-class PlaylistAlbums extends StatefulWidget {
+class PlaylistAlbums extends StatelessWidget {
   final String name;
   final int index;
   final bool isSelected;
+  final int totalNo;
+
   const PlaylistAlbums({
     Key? key,
     required this.name,
     required this.index,
     required this.isSelected,
+    required this.totalNo,
   }) : super(key: key);
-
-  @override
-  State<PlaylistAlbums> createState() => _PlaylistAlbumsState();
-}
-
-class _PlaylistAlbumsState extends State<PlaylistAlbums> {
-  // bool isSelected = false;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   plylstsongs.value = dbBox.get(widget.name)!.cast<audioModel>();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +37,7 @@ class _PlaylistAlbumsState extends State<PlaylistAlbums> {
                   children: [
                     Align(
                       alignment: Alignment.topRight,
-                      child: widget.isSelected
+                      child: isSelected
                           ? const Icon(
                               Icons.check_box_outlined,
                               color: white,
@@ -70,11 +60,11 @@ class _PlaylistAlbumsState extends State<PlaylistAlbums> {
           height: 9,
         ),
         Text(
-          widget.name,
+          name,
           style: whitetxt18,
         ),
         Text(
-          'Total 55 Songs',
+          'Total $totalNo Songs',
           style: white54txt14,
         )
       ],
