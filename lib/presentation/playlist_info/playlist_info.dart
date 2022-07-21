@@ -5,12 +5,11 @@ import 'package:music_player/application/playlist/playlist_bloc.dart';
 import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/play_song.dart';
-import 'package:music_player/presentation/playlist/playlist.dart';
 import 'package:music_player/presentation/playlist_info/widgets/add_song_button.dart';
 import 'package:music_player/presentation/playlist_info/widgets/delete_playlist.dart';
 import 'package:music_player/presentation/playlist_info/widgets/play_button_widget.dart';
 import 'package:music_player/presentation/playlist_info/widgets/songs_list.dart';
-import 'package:music_player/splash.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistInfo extends StatelessWidget {
   final String boxkey;
@@ -66,17 +65,29 @@ class PlaylistInfo extends StatelessWidget {
             // Top Section
             Column(
               children: [
-                const SizedBox(
-                  height: 30,
-                ),
                 // Song Thumbnail
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: const Icon(
-                    Icons.music_note,
-                    color: white,
-                    size: 50,
-                  ),
+                BlocBuilder<PlaylistInfoBloc, PlaylistInfoState>(
+                  builder: (context, state) {
+                    return SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: state.playlistSongs.isNotEmpty
+                            ? QueryArtworkWidget(
+                                nullArtworkWidget: const Icon(Icons.music_note,
+                                    color: white, size: 50),
+                                id: state.playlistSongs[0].id,
+                                type: ArtworkType.AUDIO,
+                                artworkFit: BoxFit.cover,
+                              )
+                            : const Align(
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.music_note,
+                                  color: white,
+                                  size: 50,
+                                ),
+                              ));
+                  },
                 ),
                 const SizedBox(height: 10),
                 // Song Name
@@ -108,25 +119,32 @@ class PlaylistInfo extends StatelessWidget {
             // Songs List
             Expanded(child: BlocBuilder<PlaylistInfoBloc, PlaylistInfoState>(
               builder: (context, state) {
-                return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: state.finalPlaylistSongs.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          playSong()
-                              .playinglist(state.finalPlaylistSongs, index);
-
-                          BlocProvider.of<HomeBloc>(context)
-                              .add(const HomeEvent.songPlayed());
-                        },
-                        child: plylistsngs(
-                          index: index,
-                          plylistSongData: state.playlistSongs[index],
-                          boxkey: boxkey,
+                return state.finalPlaylistSongs.isEmpty
+                    ? const Center(
+                        child: Text(
+                          'No Songs in the Playlist',
+                          style: TextStyle(color: white),
                         ),
-                      );
-                    });
+                      )
+                    : ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: state.finalPlaylistSongs.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              playSong()
+                                  .playinglist(state.finalPlaylistSongs, index);
+
+                              BlocProvider.of<HomeBloc>(context)
+                                  .add(const HomeEvent.songPlayed());
+                            },
+                            child: plylistsngs(
+                              index: index,
+                              plylistSongData: state.playlistSongs[index],
+                              boxkey: boxkey,
+                            ),
+                          );
+                        });
               },
             ))
           ],

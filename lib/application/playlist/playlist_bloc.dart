@@ -2,13 +2,10 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'package:injectable/injectable.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/domain/playlist/playlist_service.dart';
-import 'package:music_player/presentation/playlist/playlist.dart';
-
 import 'package:music_player/splash.dart';
 
 part 'playlist_event.dart';

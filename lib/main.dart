@@ -6,6 +6,7 @@ import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/application/home/home_bloc.dart';
 import 'package:music_player/application/playlist/playlist_bloc.dart';
 import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
+import 'package:music_player/application/recent/recent_bloc.dart';
 import 'package:music_player/application/settings/settings_bloc.dart';
 import 'package:music_player/core/constants.dart';
 
@@ -40,11 +41,9 @@ Future<void> main() async {
   }
 
   if (!(boxKeys.contains(recent))) {
-    await dbBox.put(recent, recentdbsongs);
+    List<audioModel> _recentSongsList = [];
+    await dbBox.put(recent, _recentSongsList);
   }
-  //  else if (boxKeys.contains(recent)) {
-  //   recentdbsongs = dbBox.get(recent)!.cast<audioModel>();
-  // }
   runApp(const MusicPlayer());
 }
 
@@ -65,6 +64,7 @@ class MusicPlayer extends StatelessWidget {
               BlocProvider(create: (context) => SettingsBloc()),
               BlocProvider(create: (context) => PlaylistInfoBloc()),
               BlocProvider(create: (context) => getIt<PlaylistBloc>()),
+              BlocProvider(create: (context) => RecentBloc()),
             ],
             child: MaterialApp(
               theme: ThemeData(primarySwatch: Colors.blue),

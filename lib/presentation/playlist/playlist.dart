@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_player/application/playlist/playlist_bloc.dart';
+import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/playlist/widgets/create_playlist.dart';
@@ -90,10 +91,6 @@ class musicPlaylist extends StatelessWidget {
                                 mainAxisSpacing: 40),
                         itemCount: state.playlistNames.length,
                         itemBuilder: (context, index) {
-                          List<audioModel> songsInPly = dbBox
-                              .get(state.playlistNames[index])!
-                              .cast<audioModel>();
-                          int totalSongs = songsInPly.length;
                           final playlist = state.playlistNames[index];
                           bool isPlylstSelected =
                               state.selectedList.contains(playlist);
@@ -116,11 +113,18 @@ class musicPlaylist extends StatelessWidget {
                               BlocProvider.of<PlaylistBloc>(context).add(
                                   MultiSelection(selectedPlaylist: playlist));
                             },
-                            child: PlaylistAlbums(
-                              name: playlist,
-                              index: index,
-                              isSelected: isPlylstSelected,
-                              totalNo: totalSongs,
+                            child: BlocBuilder<PlaylistInfoBloc,
+                                PlaylistInfoState>(
+                              builder: (context, state) {
+                                final List<audioModel> _allPlySongs =
+                                    dbBox.get(playlist)!.cast<audioModel>();
+                                return PlaylistAlbums(
+                                  name: playlist,
+                                  index: index,
+                                  isSelected: isPlylstSelected,
+                                  audioData: _allPlySongs,
+                                );
+                              },
                             ),
                           );
                         })));

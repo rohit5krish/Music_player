@@ -2,17 +2,11 @@ import 'dart:ui';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/core/constants.dart';
-import 'package:music_player/domain/model/data_model.dart';
-import 'package:music_player/presentation/home/widgets/songs_list.dart';
 import 'package:music_player/presentation/now_playing/widgets/add_fav_button.dart';
 import 'package:music_player/presentation/now_playing/widgets/add_playlist_button.dart';
 import 'package:music_player/presentation/now_playing/widgets/song_controllers.dart';
 import 'package:music_player/presentation/now_playing/widgets/song_image.dart';
-import 'package:music_player/presentation/playlist/widgets/add_playlist.dart';
-import 'package:music_player/splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
@@ -36,6 +30,7 @@ class NowPlaying extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return audioPlayer.builderRealtimePlayingInfos(
         builder: (context, realtimePlayingInfos) {
       return Stack(
@@ -69,14 +64,14 @@ class NowPlaying extends StatelessWidget {
                   width: double.infinity,
                   child: Column(
                     children: [
-                      const SizedBox(height: 40),
+                      SizedBox(height: screenSize.height * 0.04),
 
                       // Song Image
                       SongImageWidget(
                         realtimePlayingInfos: realtimePlayingInfos,
                       ),
 
-                      const SizedBox(height: 30),
+                      SizedBox(height: screenSize.height * 0.035),
 
                       //Songs Name
                       SizedBox(
@@ -87,7 +82,7 @@ class NowPlaying extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: screenSize.height * 0.035),
 
                       //Bottom controls Container
                       Expanded(
@@ -99,8 +94,8 @@ class NowPlaying extends StatelessWidget {
                                   topRight: Radius.circular(40))),
                           child: Column(
                             children: [
-                              const SizedBox(
-                                height: 20,
+                              SizedBox(
+                                height: screenSize.height * 0.025,
                               ),
                               //Favourites and playlists adding button
                               Row(
@@ -114,8 +109,8 @@ class NowPlaying extends StatelessWidget {
                                   const AddPlaylistButtonWidget()
                                 ],
                               ),
-                              const SizedBox(
-                                height: 40,
+                              SizedBox(
+                                height: screenSize.height * 0.045,
                               ),
 
                               //Slider bar
@@ -147,8 +142,8 @@ class NowPlaying extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              const SizedBox(
-                                height: 40,
+                              SizedBox(
+                                height: screenSize.height * 0.045,
                               ),
                               //Music Controllers
 

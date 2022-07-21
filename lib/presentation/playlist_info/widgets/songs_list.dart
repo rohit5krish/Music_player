@@ -1,14 +1,10 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_player/application/favorite/favorite_bloc.dart';
 import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
-import 'package:music_player/presentation/favorite/favourites.dart';
 import 'package:music_player/presentation/home/widgets/songs_list.dart';
-import 'package:music_player/presentation/playlist_info/playlist_info.dart';
-import 'package:music_player/splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class plylistsngs extends StatelessWidget {
@@ -124,8 +120,4 @@ class plylistsngs extends StatelessWidget {
         duration: const Duration(seconds: 4),
         content: const Text('Song removed from Playlist')));
   }
-
-  // plylistpopselection(String value) async {
-
-  // }
 }

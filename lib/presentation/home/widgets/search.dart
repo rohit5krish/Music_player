@@ -70,7 +70,14 @@ class SongSearch extends SearchDelegate<String> {
     return Container(
       padding: const EdgeInsets.all(15),
       color: bodyclr,
-      child: ListView.builder(
+      child:result.isEmpty
+          ? const Center(
+              child: Text(
+                'No Results Found',
+                style: TextStyle(color: white),
+              ),
+            )
+          :ListView.builder(
           itemCount: result.length,
           itemBuilder: (context, index) {
             return InkWell(

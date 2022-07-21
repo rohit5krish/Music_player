@@ -31,8 +31,7 @@ class SongControllerWidget extends StatelessWidget {
                 icon: const Icon(Icons.skip_previous_rounded,
                     color: white, size: 60))
             : IconButton(
-                constraints: const BoxConstraints(),
-                // padding: EdgeInsets.zero,
+                padding: const EdgeInsets.all(0),
                 onPressed: () {},
                 icon: Icon(
                   Icons.skip_previous_rounded,

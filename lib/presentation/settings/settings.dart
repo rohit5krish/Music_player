@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_player/application/settings/settings_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/presentation/settings/widgets/settings_widget.dart';
-import 'package:music_player/splash.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
