@@ -18,39 +18,45 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PlaylistEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPlaylistNames,
-    required TResult Function(String newPlylstName) createBlocPlaylist,
+    required TResult Function(String plylistName) createPlylistNames,
+    required TResult Function(String selectedPlaylist) multiSelection,
+    required TResult Function() unselectAll,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getPlaylistNames,
-    TResult Function(String newPlylstName)? createBlocPlaylist,
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPlaylistNames,
-    TResult Function(String newPlylstName)? createBlocPlaylist,
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GetPlaylistNames value) getPlaylistNames,
-    required TResult Function(CreateBlocPlaylist value) createBlocPlaylist,
+    required TResult Function(CreatePlylistNames value) createPlylistNames,
+    required TResult Function(MultiSelection value) multiSelection,
+    required TResult Function(UnselectAll value) unselectAll,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetPlaylistNames value)? getPlaylistNames,
-    TResult Function(CreateBlocPlaylist value)? createBlocPlaylist,
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GetPlaylistNames value)? getPlaylistNames,
-    TResult Function(CreateBlocPlaylist value)? createBlocPlaylist,
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -74,38 +80,323 @@ class _$PlaylistEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$GetPlaylistNamesCopyWith<$Res> {
-  factory _$$GetPlaylistNamesCopyWith(
-          _$GetPlaylistNames value, $Res Function(_$GetPlaylistNames) then) =
-      __$$GetPlaylistNamesCopyWithImpl<$Res>;
+abstract class _$$CreatePlylistNamesCopyWith<$Res> {
+  factory _$$CreatePlylistNamesCopyWith(_$CreatePlylistNames value,
+          $Res Function(_$CreatePlylistNames) then) =
+      __$$CreatePlylistNamesCopyWithImpl<$Res>;
+  $Res call({String plylistName});
 }
 
 /// @nodoc
-class __$$GetPlaylistNamesCopyWithImpl<$Res>
+class __$$CreatePlylistNamesCopyWithImpl<$Res>
     extends _$PlaylistEventCopyWithImpl<$Res>
-    implements _$$GetPlaylistNamesCopyWith<$Res> {
-  __$$GetPlaylistNamesCopyWithImpl(
-      _$GetPlaylistNames _value, $Res Function(_$GetPlaylistNames) _then)
-      : super(_value, (v) => _then(v as _$GetPlaylistNames));
+    implements _$$CreatePlylistNamesCopyWith<$Res> {
+  __$$CreatePlylistNamesCopyWithImpl(
+      _$CreatePlylistNames _value, $Res Function(_$CreatePlylistNames) _then)
+      : super(_value, (v) => _then(v as _$CreatePlylistNames));
 
   @override
-  _$GetPlaylistNames get _value => super._value as _$GetPlaylistNames;
+  _$CreatePlylistNames get _value => super._value as _$CreatePlylistNames;
+
+  @override
+  $Res call({
+    Object? plylistName = freezed,
+  }) {
+    return _then(_$CreatePlylistNames(
+      plylistName: plylistName == freezed
+          ? _value.plylistName
+          : plylistName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$GetPlaylistNames implements GetPlaylistNames {
-  const _$GetPlaylistNames();
+class _$CreatePlylistNames implements CreatePlylistNames {
+  const _$CreatePlylistNames({required this.plylistName});
+
+  @override
+  final String plylistName;
 
   @override
   String toString() {
-    return 'PlaylistEvent.getPlaylistNames()';
+    return 'PlaylistEvent.createPlylistNames(plylistName: $plylistName)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetPlaylistNames);
+        (other.runtimeType == runtimeType &&
+            other is _$CreatePlylistNames &&
+            const DeepCollectionEquality()
+                .equals(other.plylistName, plylistName));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(plylistName));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$CreatePlylistNamesCopyWith<_$CreatePlylistNames> get copyWith =>
+      __$$CreatePlylistNamesCopyWithImpl<_$CreatePlylistNames>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String plylistName) createPlylistNames,
+    required TResult Function(String selectedPlaylist) multiSelection,
+    required TResult Function() unselectAll,
+  }) {
+    return createPlylistNames(plylistName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
+  }) {
+    return createPlylistNames?.call(plylistName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
+    required TResult orElse(),
+  }) {
+    if (createPlylistNames != null) {
+      return createPlylistNames(plylistName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreatePlylistNames value) createPlylistNames,
+    required TResult Function(MultiSelection value) multiSelection,
+    required TResult Function(UnselectAll value) unselectAll,
+  }) {
+    return createPlylistNames(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
+  }) {
+    return createPlylistNames?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
+    required TResult orElse(),
+  }) {
+    if (createPlylistNames != null) {
+      return createPlylistNames(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreatePlylistNames implements PlaylistEvent {
+  const factory CreatePlylistNames({required final String plylistName}) =
+      _$CreatePlylistNames;
+
+  String get plylistName;
+  @JsonKey(ignore: true)
+  _$$CreatePlylistNamesCopyWith<_$CreatePlylistNames> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MultiSelectionCopyWith<$Res> {
+  factory _$$MultiSelectionCopyWith(
+          _$MultiSelection value, $Res Function(_$MultiSelection) then) =
+      __$$MultiSelectionCopyWithImpl<$Res>;
+  $Res call({String selectedPlaylist});
+}
+
+/// @nodoc
+class __$$MultiSelectionCopyWithImpl<$Res>
+    extends _$PlaylistEventCopyWithImpl<$Res>
+    implements _$$MultiSelectionCopyWith<$Res> {
+  __$$MultiSelectionCopyWithImpl(
+      _$MultiSelection _value, $Res Function(_$MultiSelection) _then)
+      : super(_value, (v) => _then(v as _$MultiSelection));
+
+  @override
+  _$MultiSelection get _value => super._value as _$MultiSelection;
+
+  @override
+  $Res call({
+    Object? selectedPlaylist = freezed,
+  }) {
+    return _then(_$MultiSelection(
+      selectedPlaylist: selectedPlaylist == freezed
+          ? _value.selectedPlaylist
+          : selectedPlaylist // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MultiSelection implements MultiSelection {
+  const _$MultiSelection({required this.selectedPlaylist});
+
+  @override
+  final String selectedPlaylist;
+
+  @override
+  String toString() {
+    return 'PlaylistEvent.multiSelection(selectedPlaylist: $selectedPlaylist)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MultiSelection &&
+            const DeepCollectionEquality()
+                .equals(other.selectedPlaylist, selectedPlaylist));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(selectedPlaylist));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$MultiSelectionCopyWith<_$MultiSelection> get copyWith =>
+      __$$MultiSelectionCopyWithImpl<_$MultiSelection>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String plylistName) createPlylistNames,
+    required TResult Function(String selectedPlaylist) multiSelection,
+    required TResult Function() unselectAll,
+  }) {
+    return multiSelection(selectedPlaylist);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
+  }) {
+    return multiSelection?.call(selectedPlaylist);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
+    required TResult orElse(),
+  }) {
+    if (multiSelection != null) {
+      return multiSelection(selectedPlaylist);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreatePlylistNames value) createPlylistNames,
+    required TResult Function(MultiSelection value) multiSelection,
+    required TResult Function(UnselectAll value) unselectAll,
+  }) {
+    return multiSelection(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
+  }) {
+    return multiSelection?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
+    required TResult orElse(),
+  }) {
+    if (multiSelection != null) {
+      return multiSelection(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MultiSelection implements PlaylistEvent {
+  const factory MultiSelection({required final String selectedPlaylist}) =
+      _$MultiSelection;
+
+  String get selectedPlaylist;
+  @JsonKey(ignore: true)
+  _$$MultiSelectionCopyWith<_$MultiSelection> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UnselectAllCopyWith<$Res> {
+  factory _$$UnselectAllCopyWith(
+          _$UnselectAll value, $Res Function(_$UnselectAll) then) =
+      __$$UnselectAllCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UnselectAllCopyWithImpl<$Res>
+    extends _$PlaylistEventCopyWithImpl<$Res>
+    implements _$$UnselectAllCopyWith<$Res> {
+  __$$UnselectAllCopyWithImpl(
+      _$UnselectAll _value, $Res Function(_$UnselectAll) _then)
+      : super(_value, (v) => _then(v as _$UnselectAll));
+
+  @override
+  _$UnselectAll get _value => super._value as _$UnselectAll;
+}
+
+/// @nodoc
+
+class _$UnselectAll implements UnselectAll {
+  const _$UnselectAll();
+
+  @override
+  String toString() {
+    return 'PlaylistEvent.unselectAll()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$UnselectAll);
   }
 
   @override
@@ -114,30 +405,33 @@ class _$GetPlaylistNames implements GetPlaylistNames {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPlaylistNames,
-    required TResult Function(String newPlylstName) createBlocPlaylist,
+    required TResult Function(String plylistName) createPlylistNames,
+    required TResult Function(String selectedPlaylist) multiSelection,
+    required TResult Function() unselectAll,
   }) {
-    return getPlaylistNames();
+    return unselectAll();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getPlaylistNames,
-    TResult Function(String newPlylstName)? createBlocPlaylist,
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
   }) {
-    return getPlaylistNames?.call();
+    return unselectAll?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPlaylistNames,
-    TResult Function(String newPlylstName)? createBlocPlaylist,
+    TResult Function(String plylistName)? createPlylistNames,
+    TResult Function(String selectedPlaylist)? multiSelection,
+    TResult Function()? unselectAll,
     required TResult orElse(),
   }) {
-    if (getPlaylistNames != null) {
-      return getPlaylistNames();
+    if (unselectAll != null) {
+      return unselectAll();
     }
     return orElse();
   }
@@ -145,179 +439,46 @@ class _$GetPlaylistNames implements GetPlaylistNames {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GetPlaylistNames value) getPlaylistNames,
-    required TResult Function(CreateBlocPlaylist value) createBlocPlaylist,
+    required TResult Function(CreatePlylistNames value) createPlylistNames,
+    required TResult Function(MultiSelection value) multiSelection,
+    required TResult Function(UnselectAll value) unselectAll,
   }) {
-    return getPlaylistNames(this);
+    return unselectAll(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetPlaylistNames value)? getPlaylistNames,
-    TResult Function(CreateBlocPlaylist value)? createBlocPlaylist,
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
   }) {
-    return getPlaylistNames?.call(this);
+    return unselectAll?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GetPlaylistNames value)? getPlaylistNames,
-    TResult Function(CreateBlocPlaylist value)? createBlocPlaylist,
+    TResult Function(CreatePlylistNames value)? createPlylistNames,
+    TResult Function(MultiSelection value)? multiSelection,
+    TResult Function(UnselectAll value)? unselectAll,
     required TResult orElse(),
   }) {
-    if (getPlaylistNames != null) {
-      return getPlaylistNames(this);
+    if (unselectAll != null) {
+      return unselectAll(this);
     }
     return orElse();
   }
 }
 
-abstract class GetPlaylistNames implements PlaylistEvent {
-  const factory GetPlaylistNames() = _$GetPlaylistNames;
-}
-
-/// @nodoc
-abstract class _$$CreateBlocPlaylistCopyWith<$Res> {
-  factory _$$CreateBlocPlaylistCopyWith(_$CreateBlocPlaylist value,
-          $Res Function(_$CreateBlocPlaylist) then) =
-      __$$CreateBlocPlaylistCopyWithImpl<$Res>;
-  $Res call({String newPlylstName});
-}
-
-/// @nodoc
-class __$$CreateBlocPlaylistCopyWithImpl<$Res>
-    extends _$PlaylistEventCopyWithImpl<$Res>
-    implements _$$CreateBlocPlaylistCopyWith<$Res> {
-  __$$CreateBlocPlaylistCopyWithImpl(
-      _$CreateBlocPlaylist _value, $Res Function(_$CreateBlocPlaylist) _then)
-      : super(_value, (v) => _then(v as _$CreateBlocPlaylist));
-
-  @override
-  _$CreateBlocPlaylist get _value => super._value as _$CreateBlocPlaylist;
-
-  @override
-  $Res call({
-    Object? newPlylstName = freezed,
-  }) {
-    return _then(_$CreateBlocPlaylist(
-      newPlylstName: newPlylstName == freezed
-          ? _value.newPlylstName
-          : newPlylstName // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$CreateBlocPlaylist implements CreateBlocPlaylist {
-  const _$CreateBlocPlaylist({required this.newPlylstName});
-
-  @override
-  final String newPlylstName;
-
-  @override
-  String toString() {
-    return 'PlaylistEvent.createBlocPlaylist(newPlylstName: $newPlylstName)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CreateBlocPlaylist &&
-            const DeepCollectionEquality()
-                .equals(other.newPlylstName, newPlylstName));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(newPlylstName));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$CreateBlocPlaylistCopyWith<_$CreateBlocPlaylist> get copyWith =>
-      __$$CreateBlocPlaylistCopyWithImpl<_$CreateBlocPlaylist>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() getPlaylistNames,
-    required TResult Function(String newPlylstName) createBlocPlaylist,
-  }) {
-    return createBlocPlaylist(newPlylstName);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getPlaylistNames,
-    TResult Function(String newPlylstName)? createBlocPlaylist,
-  }) {
-    return createBlocPlaylist?.call(newPlylstName);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPlaylistNames,
-    TResult Function(String newPlylstName)? createBlocPlaylist,
-    required TResult orElse(),
-  }) {
-    if (createBlocPlaylist != null) {
-      return createBlocPlaylist(newPlylstName);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(GetPlaylistNames value) getPlaylistNames,
-    required TResult Function(CreateBlocPlaylist value) createBlocPlaylist,
-  }) {
-    return createBlocPlaylist(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetPlaylistNames value)? getPlaylistNames,
-    TResult Function(CreateBlocPlaylist value)? createBlocPlaylist,
-  }) {
-    return createBlocPlaylist?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(GetPlaylistNames value)? getPlaylistNames,
-    TResult Function(CreateBlocPlaylist value)? createBlocPlaylist,
-    required TResult orElse(),
-  }) {
-    if (createBlocPlaylist != null) {
-      return createBlocPlaylist(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class CreateBlocPlaylist implements PlaylistEvent {
-  const factory CreateBlocPlaylist({required final String newPlylstName}) =
-      _$CreateBlocPlaylist;
-
-  String get newPlylstName;
-  @JsonKey(ignore: true)
-  _$$CreateBlocPlaylistCopyWith<_$CreateBlocPlaylist> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class UnselectAll implements PlaylistEvent {
+  const factory UnselectAll() = _$UnselectAll;
 }
 
 /// @nodoc
 mixin _$PlaylistState {
   List<String> get playlistNames => throw _privateConstructorUsedError;
+  List<String> get selectedList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PlaylistStateCopyWith<PlaylistState> get copyWith =>
@@ -329,7 +490,7 @@ abstract class $PlaylistStateCopyWith<$Res> {
   factory $PlaylistStateCopyWith(
           PlaylistState value, $Res Function(PlaylistState) then) =
       _$PlaylistStateCopyWithImpl<$Res>;
-  $Res call({List<String> playlistNames});
+  $Res call({List<String> playlistNames, List<String> selectedList});
 }
 
 /// @nodoc
@@ -344,11 +505,16 @@ class _$PlaylistStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? playlistNames = freezed,
+    Object? selectedList = freezed,
   }) {
     return _then(_value.copyWith(
       playlistNames: playlistNames == freezed
           ? _value.playlistNames
           : playlistNames // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      selectedList: selectedList == freezed
+          ? _value.selectedList
+          : selectedList // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -361,7 +527,7 @@ abstract class _$$_PlaylistStateCopyWith<$Res>
           _$_PlaylistState value, $Res Function(_$_PlaylistState) then) =
       __$$_PlaylistStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<String> playlistNames});
+  $Res call({List<String> playlistNames, List<String> selectedList});
 }
 
 /// @nodoc
@@ -378,11 +544,16 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? playlistNames = freezed,
+    Object? selectedList = freezed,
   }) {
     return _then(_$_PlaylistState(
       playlistNames: playlistNames == freezed
           ? _value._playlistNames
           : playlistNames // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      selectedList: selectedList == freezed
+          ? _value._selectedList
+          : selectedList // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -391,8 +562,11 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PlaylistState implements _PlaylistState {
-  const _$_PlaylistState({required final List<String> playlistNames})
-      : _playlistNames = playlistNames;
+  const _$_PlaylistState(
+      {required final List<String> playlistNames,
+      required final List<String> selectedList})
+      : _playlistNames = playlistNames,
+        _selectedList = selectedList;
 
   final List<String> _playlistNames;
   @override
@@ -401,9 +575,16 @@ class _$_PlaylistState implements _PlaylistState {
     return EqualUnmodifiableListView(_playlistNames);
   }
 
+  final List<String> _selectedList;
+  @override
+  List<String> get selectedList {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedList);
+  }
+
   @override
   String toString() {
-    return 'PlaylistState(playlistNames: $playlistNames)';
+    return 'PlaylistState(playlistNames: $playlistNames, selectedList: $selectedList)';
   }
 
   @override
@@ -412,12 +593,16 @@ class _$_PlaylistState implements _PlaylistState {
         (other.runtimeType == runtimeType &&
             other is _$_PlaylistState &&
             const DeepCollectionEquality()
-                .equals(other._playlistNames, _playlistNames));
+                .equals(other._playlistNames, _playlistNames) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedList, _selectedList));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_playlistNames));
+      runtimeType,
+      const DeepCollectionEquality().hash(_playlistNames),
+      const DeepCollectionEquality().hash(_selectedList));
 
   @JsonKey(ignore: true)
   @override
@@ -426,11 +611,14 @@ class _$_PlaylistState implements _PlaylistState {
 }
 
 abstract class _PlaylistState implements PlaylistState {
-  const factory _PlaylistState({required final List<String> playlistNames}) =
-      _$_PlaylistState;
+  const factory _PlaylistState(
+      {required final List<String> playlistNames,
+      required final List<String> selectedList}) = _$_PlaylistState;
 
   @override
   List<String> get playlistNames;
+  @override
+  List<String> get selectedList;
   @override
   @JsonKey(ignore: true)
   _$$_PlaylistStateCopyWith<_$_PlaylistState> get copyWith =>

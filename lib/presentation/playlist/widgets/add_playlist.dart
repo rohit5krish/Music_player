@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/application/playlist/playlist_bloc.dart';
+import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/core/constants.dart';
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/home/widgets/songs_list.dart';
@@ -36,47 +39,56 @@ addToPlaylist(BuildContext context, audioModel element) {
                 const SizedBox(
                   height: 20,
                 ),
-                Expanded(
-                    child: plylst.value.isEmpty
-                        ? const Center(
-                            child: Text(
-                              'No Playlists',
-                              style: TextStyle(color: white),
-                            ),
-                          )
-                        : ListView.builder(
-                            itemCount: plylst.value.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  // plylstsongs.value = dbBox
-                                  //     .get(plylst.value[index])!
-                                  //     .cast<audioModel>();
-                                  // !checkAdded(
-                                  //         element.songname, plylstsongs.value)
-                                  //     ? addPlylstDb(context, index, element)
-                                  //     :
-                                  addedNoti(
-                                      isadd: true,
-                                      ctx: context,
-                                      isfav: plylst.value[index]);
-                                  Navigator.of(context).pop();
-                                },
-                                child: ListTile(
-                                  title: Text(
-                                    plylst.value[index],
-                                    style: const TextStyle(color: white),
-                                  ),
-                                  trailing: checkAdded(element.songname,
-                                          dbBox.get(plylst.value[index])!)
-                                      ? const Text(
-                                          'Already added',
-                                          style: white30txt12,
-                                        )
-                                      : const Text(''),
+                BlocBuilder<PlaylistBloc, PlaylistState>(
+                  builder: (context, state) {
+                    return Expanded(
+                        child: state.playlistNames.isEmpty
+                            ? const Center(
+                                child: Text(
+                                  'No Playlists',
+                                  style: TextStyle(color: white),
                                 ),
-                              );
-                            })),
+                              )
+                            : ListView.builder(
+                                itemCount: state.playlistNames.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      List<audioModel> _plylstsongs = dbBox
+                                          .get(state.playlistNames[index])!
+                                          .cast<audioModel>();
+                                      !checkAdded(
+                                              element.songname, _plylstsongs)
+                                          ? addPlylstDb(context, element,
+                                              state.playlistNames[index])
+                                          : addedNoti(
+                                              isadd: true,
+                                              ctx: context,
+                                              isfav:
+                                                  state.playlistNames[index]);
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: ListTile(
+                                      title: Text(
+                                        state.playlistNames[index],
+                                        style: const TextStyle(color: white),
+                                      ),
+                                      trailing: checkAdded(
+                                              element.songname,
+                                              dbBox
+                                                  .get(state
+                                                      .playlistNames[index])!
+                                                  .cast<audioModel>())
+                                          ? const Text(
+                                              'Already added',
+                                              style: white30txt12,
+                                            )
+                                          : const Text(''),
+                                    ),
+                                  );
+                                }));
+                  },
+                ),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -92,9 +104,9 @@ addToPlaylist(BuildContext context, audioModel element) {
       });
 }
 
-Future addPlylstDb(BuildContext context, int index, audioModel element) async {
-  // plylstsongs.value = List.from(plylstsongs.value)..add(element);
-  // plylstsongs.notifyListeners();
-  // await dbBox.put(plylst.value[index], plylstsongs.value);
-  // addedNoti(isadd: false, ctx: context, isfav: plylst.value[index]);
+Future addPlylstDb(
+    BuildContext context, audioModel element, String _plylstName) async {
+  BlocProvider.of<PlaylistInfoBloc>(context)
+      .add(AddSongToPlaylist(boxKey: _plylstName, songDatas: element));
+  addedNoti(isadd: false, ctx: context, isfav: _plylstName);
 }

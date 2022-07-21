@@ -8,14 +8,19 @@ import 'package:music_player/application/playlist/playlist_bloc.dart';
 import 'package:music_player/application/playlist_info/playlist_info_bloc.dart';
 import 'package:music_player/application/settings/settings_bloc.dart';
 import 'package:music_player/core/constants.dart';
+
+import 'package:music_player/domain/core/di/injectable.dart';
+
 import 'package:music_player/domain/model/data_model.dart';
 import 'package:music_player/presentation/recent/recent.dart';
 import 'package:music_player/presentation/favorite/favourites.dart';
-import 'package:music_player/presentation/playlist/playlist.dart';
 import 'package:music_player/splash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await configureInjection();
+
   await Hive.initFlutter();
 
   // if (!Hive.isAdapterRegistered(audioModelAdapter().typeId)) {
@@ -25,8 +30,8 @@ Future<void> main() async {
 
   List<dynamic> boxKeys = dbBox.keys.toList();
   if (!(boxKeys.contains(plylstlisting))) {
-    List<String> _playlistNames = [];
-    await dbBox.put(plylstlisting, _playlistNames);
+    List<String> _plylstNames = [];
+    await dbBox.put(plylstlisting, _plylstNames);
   }
 
   if (!(boxKeys.contains(favsongs))) {
@@ -59,7 +64,7 @@ class MusicPlayer extends StatelessWidget {
               BlocProvider(create: (context) => FavoriteBloc()),
               BlocProvider(create: (context) => SettingsBloc()),
               BlocProvider(create: (context) => PlaylistInfoBloc()),
-              BlocProvider(create: (context) => PlaylistBloc()),
+              BlocProvider(create: (context) => getIt<PlaylistBloc>()),
             ],
             child: MaterialApp(
               theme: ThemeData(primarySwatch: Colors.blue),
