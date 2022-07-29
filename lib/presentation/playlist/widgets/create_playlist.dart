@@ -103,8 +103,9 @@ createPlaylist(
                                   if (_plylistname.isEmpty) {
                                     return;
                                   } else {
-                                    await blocPlaylistCreate(
-                                        context, _plylistname);
+                                    BlocProvider.of<PlaylistBloc>(context).add(
+                                        CreatePlylistNames(
+                                            plylistName: _plylistname));
                                     log('Before put');
                                     List<audioModel> _plylstsngs = [];
                                     await dbBox.put(_plylistname, _plylstsngs);
@@ -125,8 +126,8 @@ createPlaylist(
       });
 }
 
-Future<void> blocPlaylistCreate(
-    BuildContext context, String newPlylstName) async {
-  BlocProvider.of<PlaylistBloc>(context)
-      .add(CreatePlylistNames(plylistName: newPlylstName));
-}
+// Future<void> blocPlaylistCreate(
+//     BuildContext context, String newPlylstName) async {
+//   BlocProvider.of<PlaylistBloc>(context)
+//       .add(CreatePlylistNames(plylistName: newPlylstName));
+// }
