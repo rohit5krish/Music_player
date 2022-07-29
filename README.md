@@ -11,3 +11,7 @@ A music player application build using Flutter to play songs available on the de
 <img src="https://raw.githubusercontent.com/rohit5krish/Music_player/main/assets/Screenshots/Screenshot_2022-07-29-09-55-42-635_com.rohit.music_player.jpg" width="150" height="350">
 <img src="https://raw.githubusercontent.com/rohit5krish/Music_player/main/assets/Screenshots/Screenshot_2022-07-29-09-54-42-686_com.rohit.music_player.jpg" width="150" height="350">
 </div>
+
+## Get the App on Play Store
+
+Link to play store : https://play.google.com/store/apps/details?id=com.rohit.music_player
